@@ -1,0 +1,221 @@
+---
+/**
+ * Contacto — pieza protagonista. Cabecera grande + grid 2 columnas:
+ *   izquierda → 4 métodos de contacto directos (email, WhatsApp, Instagram,
+ *   LinkedIn) + reassurance ("respondo en <48 h").
+ *   derecha → formulario en tarjeta elevada (ContactForm).
+ *
+ * Iconos: Mail y WhatsApp vía Lucide (`@lucide/astro`); Instagram y LinkedIn
+ * como SVG inline porque Lucide ya no incluye iconos de marca. Datos de
+ * contacto en `@data/site` — PLACEHOLDERS.
+ */
+import ContactForm from '@components/sections/ContactForm.astro';
+import Icon from '@components/ui/Icon.astro';
+import Mail from '@lucide/astro/icons/mail';
+import MessageCircle from '@lucide/astro/icons/message-circle';
+import { contact } from '@data/site';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const m = t.contact.methods;
+---
+
+<section class="contact" id="contact" data-screen-label="Contacto">
+  <div class="wrap">
+    <div class="contact-head">
+      <span class="sec-idx reveal">{t.contact.idx}</span>
+      <h2 class="contact-big reveal" set:html={t.contact.title} />
+      <p class="sec-aside reveal">{t.contact.aside}</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-side">
+        <div class="contact-methods">
+          <a class="cm reveal" href={`mailto:${contact.email}`}>
+            <span class="cm-l">
+              <span class="ic"><Icon icon={Mail} size={22} /></span>
+              <span class="cm-text">
+                <span class="ct">{contact.email}</span>
+                <span class="cs">{m.emailSub}</span>
+              </span>
+            </span>
+            <span class="ar" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="cm reveal" href={contact.whatsapp.href} target="_blank" rel="noopener">
+            <span class="cm-l">
+              <span class="ic"><Icon icon={MessageCircle} size={22} /></span>
+              <span class="cm-text">
+                <span class="ct">{contact.whatsapp.display}</span>
+                <span class="cs">{m.waSub}</span>
+              </span>
+            </span>
+            <span class="ar" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="cm reveal" href={contact.instagram.href} target="_blank" rel="noopener">
+            <span class="cm-l">
+              <span class="ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"></circle>
+                </svg>
+              </span>
+              <span class="cm-text">
+                <span class="ct">{contact.instagram.display}</span>
+                <span class="cs">{m.igSub}</span>
+              </span>
+            </span>
+            <span class="ar" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="cm reveal" href={contact.linkedin.href} target="_blank" rel="noopener">
+            <span class="cm-l">
+              <span class="ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                  <path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4M11 10v7"></path>
+                </svg>
+              </span>
+              <span class="cm-text">
+                <span class="ct">{contact.linkedin.display}</span>
+                <span class="cs">{m.liSub}</span>
+              </span>
+            </span>
+            <span class="ar" aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="contact-reassure reveal">
+          <span class="rr-dot" aria-hidden="true"></span>
+          <span>{t.contact.reassure}</span>
+        </div>
+      </div>
+
+      <ContactForm lang={lang} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-block: clamp(90px, 12vw, 160px) 90px;
+  }
+  .contact-head {
+    display: grid;
+    gap: 24px;
+    max-width: 760px;
+  }
+  .contact-big {
+    font-size: clamp(40px, 7vw, 100px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+  .contact-big :global(.serif) {
+    color: var(--wine);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: clamp(36px, 5vw, 72px);
+    margin-block-start: 64px;
+    align-items: start;
+  }
+  .contact-side {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+  }
+  .cm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 22px;
+    border-block-start: 1px solid var(--hair);
+    transition: padding-inline-start 0.3s;
+  }
+  .cm:last-child {
+    border-block-end: 1px solid var(--hair);
+  }
+  .cm-l {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .cm .ic {
+    width: 22px;
+    height: 22px;
+    color: var(--wine);
+    flex-shrink: 0;
+  }
+  .cm .ic :global(svg) {
+    width: 100%;
+    height: 100%;
+    stroke-width: 1.6;
+  }
+  .cm-text {
+    display: grid;
+    gap: 2px;
+  }
+  .cm .ct {
+    font-weight: 500;
+    font-size: 17px;
+  }
+  .cm .cs {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cm .ar {
+    font-family: var(--font-s);
+    font-style: italic;
+    color: var(--faint);
+    transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .cm:hover {
+    padding-inline-start: 8px;
+  }
+  .cm:hover .ar {
+    color: var(--wine);
+    transform: translate(4px, -4px);
+  }
+
+  .contact-reassure {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .rr-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--green) 22%, transparent);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 880px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+  @media (max-width: 620px) {
+    .contact {
+      padding-block: 72px;
+    }
+  }
+</style>

@@ -1,0 +1,105 @@
+---
+/**
+ * Hero — variante "centrado" (decisión de diseño: sin retrato, todo centrado).
+ * Eyebrow · título grande con segunda línea en serif itálica vino · subtítulo ·
+ * "toast" Salud → Skål. El título entra con slide-up enmascarado (.line-mask).
+ */
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<header class="hero" id="top" data-screen-label="Hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="kicker reveal">{t.hero.eyebrow}</span>
+      <span class="line-mask">
+        <h1 class="hero-title line-in" set:html={t.hero.title} />
+      </span>
+      <p class="hero-sub reveal">{t.hero.sub}</p>
+      <div class="hero-toast reveal">
+        <b>{t.hero.toast.a}</b>
+        <span class="arr" aria-hidden="true">→</span>
+        <b>{t.hero.toast.b}</b>
+        <span class="toast-lbl">{t.hero.toast.label}</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding-block: 90px 40px;
+  }
+  .hero-copy {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: clamp(24px, 3.4vw, 34px);
+    width: 100%;
+  }
+  .hero-title {
+    font-size: clamp(48px, 8.2vw, 124px);
+    font-weight: 500;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+  }
+  .hero-title :global(.serif) {
+    display: inline-block;
+    color: var(--wine);
+  }
+  .hero-sub {
+    max-width: 46ch;
+    color: var(--muted);
+    font-size: clamp(16px, 1.5vw, 21px);
+    line-height: 1.5;
+  }
+  .hero-toast {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .hero-toast b {
+    color: var(--fg);
+    font-weight: 600;
+  }
+  .hero-toast .arr {
+    color: var(--wine);
+    font-family: var(--font-s);
+    font-style: italic;
+    font-size: 20px;
+  }
+  @media (max-width: 620px) {
+    .hero {
+      min-height: auto;
+      padding-block: 116px 60px;
+    }
+    .hero-title {
+      font-size: clamp(40px, 13vw, 60px);
+    }
+    .hero-sub {
+      font-size: 17px;
+    }
+    .hero-toast {
+      gap: 10px 14px;
+    }
+  }
+  @media (max-width: 380px) {
+    .hero-title {
+      font-size: clamp(34px, 12vw, 44px);
+    }
+  }
+</style>

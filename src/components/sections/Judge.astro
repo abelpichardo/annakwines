@@ -1,0 +1,118 @@
+---
+/**
+ * Juez de vinos — sección en tema oscuro (fondo tinta) para crear contraste.
+ * 3 estadísticas grandes + fila de chips. Cifras y textos son de EJEMPLO.
+ */
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="judge" id="judge" data-screen-label="Juez de vinos">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="head-lead">
+        <span class="sec-idx reveal">{t.judge.idx}</span>
+        <h2 class="sec-title reveal" set:html={t.judge.title} />
+      </div>
+      <p class="sec-aside reveal">{t.judge.aside}</p>
+    </div>
+
+    <div class="judge-body">
+      <div class="judge-stats">
+        {
+          t.judge.stats.map((stat) => (
+            <div class="stat reveal">
+              <div class="n">{stat.n}</div>
+              <div class="k">{stat.k}</div>
+            </div>
+          ))
+        }
+      </div>
+      <ul class="judge-chips reveal">
+        {t.judge.chips.map((chip) => <li>{chip}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .judge {
+    background: var(--ink);
+    color: var(--bone);
+    padding-block: clamp(90px, 12vw, 150px);
+  }
+  .judge :global(.sec-title) {
+    color: var(--bone);
+  }
+  .judge :global(.sec-idx) {
+    color: oklch(0.78 0.1 30);
+  }
+  .judge :global(.sec-aside) {
+    color: oklch(0.945 0.016 80 / 0.66);
+  }
+
+  .judge-body {
+    display: grid;
+    gap: 56px;
+  }
+  .judge-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .stat {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+  .stat .n {
+    font-size: clamp(46px, 6vw, 84px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .stat .k {
+    color: oklch(0.945 0.016 80 / 0.6);
+    font-size: 14px;
+    max-width: 22ch;
+    line-height: 1.45;
+  }
+
+  .judge-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    border-block-start: 1px solid oklch(0.945 0.016 80 / 0.16);
+    padding-block-start: 36px;
+  }
+  .judge-chips li {
+    font-size: 14px;
+    color: oklch(0.945 0.016 80 / 0.8);
+    border: 1px solid oklch(0.945 0.016 80 / 0.2);
+    border-radius: 100px;
+    padding-block: 8px;
+    padding-inline: 16px;
+  }
+
+  @media (max-width: 720px) {
+    .judge-stats {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+  @media (max-width: 620px) {
+    .judge {
+      padding-block: 72px;
+    }
+    .judge-body {
+      gap: 40px;
+    }
+  }
+</style>

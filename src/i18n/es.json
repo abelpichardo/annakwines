@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "title": "Anna K Wines — Del viñedo español a la mesa nórdica",
+    "description": "Anna K. conecta bodegas españolas con los mercados del norte y centro de Europa: exportación, representación y consultoría de vino. Catadora y juez de vinos."
+  },
+  "nav": {
+    "about": "Anna",
+    "work": "Qué hago",
+    "services": "Servicios",
+    "certs": "Acreditaciones",
+    "markets": "Mercados",
+    "contact": "Contacto",
+    "cta": "Hablemos"
+  },
+  "hero": {
+    "eyebrow": "Consultora de vino · Puente España ⇄ Norte y centro de Europa",
+    "title": "Del viñedo español<br><span class='serif'>a la mesa nórdica.</span>",
+    "sub": "Soy Anna K. Conecto bodegas españolas con los mercados del norte y el centro de Europa —exportación, representación y consultoría de vino con criterio—.",
+    "toast": {
+      "a": "Salud",
+      "b": "Skål",
+      "label": "Un brindis, dos culturas"
+    }
+  },
+  "portrait": {
+    "cap": "Anna K · Catadora & Juez de vinos",
+    "badge": "Vino que cruza fronteras"
+  },
+  "about": {
+    "idx": "01 — Quién soy",
+    "title": "Vivo el vino<br>de <span class='serif'>cepa a copa.</span>",
+    "p1": "<span class='lead-in'>Llevo más de dos décadas</span> entre viñedos, ferias y salas de cata. Nací entre dos mundos —el carácter del vino español y la exigencia del paladar nórdico— y he hecho de ese cruce mi oficio.",
+    "p2": "Ayudo a bodegas españolas a contar bien su historia y a llevar sus vinos a Suecia, Noruega, Dinamarca y Finlandia: desde el primer contacto con el importador hasta el lineal del monopolio.",
+    "p3": "Cato, formo y juzgo. Pero sobre todo, traduzco: convierto la tierra y el trabajo de una bodega en un vino que una mesa del Norte entiende y desea.",
+    "quote": "“El buen vino no necesita traducción. Pero llegar hasta la mesa correcta, sí.”",
+    "signRole": "Consultora, catadora y juez de vinos"
+  },
+  "bridge": {
+    "idx": "02 — Qué hago",
+    "title": "Un puente entre<br>quien <span class='serif'>hace el vino</span><br>y quien lo <span class='serif'>descorcha.</span>",
+    "aside": "No vendo cajas. Construyo relaciones de largo plazo entre la bodega y el mercado, y cuido cada paso del camino.",
+    "left": {
+      "kick": "España",
+      "h": "La bodega",
+      "p": "Familias, viñedos de altura, denominaciones con historia. Vino con alma que merece viajar."
+    },
+    "ring": "Anna",
+    "right": {
+      "kick": "Norte de Europa",
+      "h": "La mesa",
+      "p": "Importadores, monopolios estatales, sumilleres y restaurantes que buscan algo auténtico."
+    }
+  },
+  "services": {
+    "idx": "03 — Servicios",
+    "title": "Cómo<br><span class='serif'>acompaño.</span>",
+    "aside": "Cuatro maneras de trabajar juntos, según en qué punto del camino estés.",
+    "items": [
+      {
+        "title": "Exportación",
+        "desc": "Abro y gestiono canales de venta en los países nórdicos. Negociación con importadores y entrada en monopolios estatales.",
+        "tags": ["Importadores", "Monopolios", "Logística"]
+      },
+      {
+        "title": "Representación comercial",
+        "desc": "Soy los ojos y la voz de tu bodega en el Norte: ferias, visitas, presentaciones y seguimiento continuo del cliente.",
+        "tags": ["Ferias", "Visitas", "Seguimiento"]
+      },
+      {
+        "title": "Consultoría de vino",
+        "desc": "Posicionamiento, cartera, precio y relato. Decidimos juntos qué vinos, para qué mercado y con qué historia.",
+        "tags": ["Estrategia", "Cartera", "Branding"]
+      },
+      {
+        "title": "Cata & formación",
+        "desc": "Catas guiadas, formación de equipos y selección técnica. El criterio de una juez al servicio de tu proyecto.",
+        "tags": ["Catas", "Formación", "Selección"]
+      }
+    ]
+  },
+  "certs": {
+    "idx": "04 — Acreditaciones",
+    "title": "Criterio<br><span class='serif'>acreditado.</span>",
+    "aside": "Algunas de las certificaciones y distinciones del sector. (Ajustaremos esta lista con las tuyas reales.)",
+    "items": [
+      { "title": "WSET Level 3 Award in Wines", "org": "Wine & Spirit Education Trust" },
+      { "title": "WSET Diploma (Level 4)", "org": "Wine & Spirit Education Trust" },
+      { "title": "Certified Sommelier", "org": "Court of Master Sommeliers" },
+      { "title": "Spanish Wine Educator", "org": "Wine Academy of Spain" },
+      { "title": "Especialista en vinos de Jerez", "org": "Consejo Regulador · Sherry" },
+      { "title": "Cata profesional certificada", "org": "Panel de cata acreditado" }
+    ]
+  },
+  "judge": {
+    "idx": "05 — Juez de vinos",
+    "title": "En la mesa del <span class='serif'>jurado.</span>",
+    "aside": "He sido juez en concursos internacionales: catar a ciegas, puntuar con rigor y defender un criterio. Esa misma exigencia es la que llevo a cada bodega.",
+    "stats": [
+      { "n": "12", "k": "Concursos internacionales como jurado" },
+      { "n": "2.000", "k": "Vinos catados a ciegas y puntuados" },
+      { "n": "20", "k": "Años de experiencia en el sector" }
+    ],
+    "chips": [
+      "Catas a ciegas",
+      "Paneles internacionales",
+      "Concursos de vino",
+      "Selección técnica",
+      "Evaluación sensorial",
+      "Premios y medallas"
+    ]
+  },
+  "markets": {
+    "idx": "06 — Mercados",
+    "title": "Donde llega<br>el <span class='serif'>vino.</span>",
+    "main": "Mercado principal",
+    "items": [
+      { "country": "Polonia", "channel": "Importación & HoReCa · mercado abierto" },
+      { "country": "Alemania", "channel": "Importación & retail · mercado abierto" },
+      { "country": "Finlandia", "channel": "Alko · monopolio estatal" },
+      { "country": "Suecia", "channel": "Systembolaget · monopolio estatal" },
+      { "country": "Noruega", "channel": "Vinmonopolet · monopolio estatal" },
+      { "country": "Dinamarca", "channel": "Importación & HoReCa" }
+    ],
+    "note": {
+      "big": "El norte y el centro de Europa beben con curiosidad y exigen calidad.",
+      "p": "La mayor parte de mis exportaciones van a <strong>Polonia, Alemania y Finlandia</strong>, con presencia creciente en el resto de Escandinavia. Conozco tanto los mercados abiertos como los <strong>monopolios estatales</strong>: sus procesos, sus tiempos y a sus compradores."
+    }
+  },
+  "testimonials": {
+    "idx": "07 — Confianza",
+    "title": "Lo que dicen<br>las <span class='serif'>bodegas.</span>",
+    "aside": "Relaciones de largo plazo, construidas botella a botella.",
+    "items": [
+      {
+        "quote": "“Anna no nos abrió un mercado, nos abrió una cultura. Hoy nuestro vino está en la mesa de medio Estocolmo.”",
+        "name": "Bodega del interior",
+        "meta": "D.O. · España (testimonio de ejemplo)"
+      },
+      {
+        "quote": "“Entiende el vino como una catadora y el negocio como una exportadora. Esa mezcla es rarísima.”",
+        "name": "Importador nórdico",
+        "meta": "Escandinavia (testimonio de ejemplo)"
+      }
+    ],
+    "logosLabel": "Bodegas que confían"
+  },
+  "contact": {
+    "idx": "08 — Contacto",
+    "title": "¿Llevamos tu vino<br>al <span class='serif'>Norte?</span>",
+    "aside": "Cuéntame tu bodega y tus vinos. Respondo personalmente en menos de 48 h.",
+    "methods": {
+      "emailSub": "Para propuestas y bodegas",
+      "waSub": "Respuesta rápida",
+      "igSub": "Catas, ferias y día a día",
+      "liSub": "Perfil profesional"
+    },
+    "reassure": "Respondo personalmente en menos de 48 h.",
+    "form": {
+      "heading": "Escríbeme sobre tu bodega",
+      "sub": "Cuanto más me cuentes, mejor podré ayudarte.",
+      "name": "Nombre",
+      "namePh": "Tu nombre",
+      "winery": "Bodega",
+      "wineryPh": "Nombre de tu bodega",
+      "email": "Email",
+      "emailPh": "tucorreo@bodega.com",
+      "phone": "Teléfono",
+      "phonePh": "+34 600 000 000",
+      "market": "Mercado de interés",
+      "marketAny": "Sin preferencia",
+      "marketAll": "Todos los anteriores",
+      "service": "Servicio",
+      "serviceAny": "¿Qué necesitas?",
+      "msg": "Cuéntame",
+      "msgPh": "Qué vinos tienes y a qué mercado quieres llegar…",
+      "btn": "Enviar mensaje",
+      "privacy": "Tus datos solo se usan para responderte.",
+      "ok": "✓ Recibido. Te escribo muy pronto. ¡Salud!"
+    }
+  },
+  "footer": {
+    "tag": "Vino español para el mundo · con base en el Norte"
+  }
+}

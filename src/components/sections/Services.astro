@@ -1,0 +1,112 @@
+---
+/**
+ * Servicios — lista de 4 filas numeradas (i–iv en serif). Cada fila: nº ·
+ * título · descripción + chips. Los numerales viven en `serviceMeta` (datos de
+ * presentación) y se emparejan por índice con `services.items` (copy traducida).
+ */
+import Tag from '@components/ui/Tag.astro';
+import { serviceMeta } from '@data/site';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="block" id="services" data-screen-label="Servicios">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="head-lead">
+        <span class="sec-idx reveal">{t.services.idx}</span>
+        <h2 class="sec-title reveal" set:html={t.services.title} />
+      </div>
+      <p class="sec-aside reveal">{t.services.aside}</p>
+    </div>
+
+    <div class="svc">
+      {
+        t.services.items.map((item, i) => (
+          <article class="svc-row reveal">
+            <span class="svc-num" aria-hidden="true">
+              {serviceMeta[i]?.num}
+            </span>
+            <h3>{item.title}</h3>
+            <div class="svc-desc">
+              <span>{item.desc}</span>
+              <div class="svc-tags">
+                {item.tags.map((tag) => (
+                  <Tag>{tag}</Tag>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .svc {
+    border-block-start: 1px solid var(--hair);
+  }
+  .svc-row {
+    display: grid;
+    grid-template-columns: 64px 1fr 1.1fr;
+    gap: 30px;
+    align-items: start;
+    padding-block: 40px;
+    border-block-end: 1px solid var(--hair);
+    transition: background 0.4s var(--ease);
+  }
+  .svc-row:hover {
+    background: var(--panel);
+  }
+  .svc-num {
+    font-family: var(--font-s);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--wine);
+  }
+  .svc-row h3 {
+    font-size: clamp(24px, 2.6vw, 34px);
+  }
+  .svc-desc {
+    display: grid;
+    gap: 18px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 15.5px;
+    max-width: 48ch;
+  }
+  .svc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 760px) {
+    .svc-row {
+      grid-template-columns: 40px 1fr;
+    }
+    .svc-desc {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 620px) {
+    .svc-row {
+      grid-template-columns: 34px 1fr;
+      gap: 8px 18px;
+      padding-block: 32px;
+    }
+    .svc-row h3 {
+      grid-column: 2;
+    }
+    .svc-desc {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

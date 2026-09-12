@@ -1,0 +1,65 @@
+---
+/**
+ * Conmutador de idioma (ES / EN / SV) como enlaces a la misma landing en cada
+ * idioma (URLs reales e indexables, mejor para SEO que un swap por JS).
+ * Usa `getRelativeLocaleUrl` de `astro:i18n`. El script de interacciones añade
+ * el hash actual a cada enlace para conservar la sección al cambiar de idioma.
+ */
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { langCodes, type Lang } from '@i18n/ui';
+
+interface Props {
+  current: Lang;
+}
+const { current } = Astro.props;
+---
+
+<div class="lang" role="group" aria-label="Idioma / Language / Språk">
+  {
+    langCodes.map((lang) => (
+      <a
+        class:list={['lang-btn', { on: lang === current }]}
+        href={getRelativeLocaleUrl(lang, '')}
+        lang={lang}
+        hreflang={lang}
+        data-lang-link
+        aria-current={lang === current ? 'true' : undefined}
+      >
+        {lang.toUpperCase()}
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--hair);
+    border-radius: 100px;
+    padding: 3px;
+  }
+  .lang-btn {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding-block: 5px;
+    padding-inline: 9px;
+    border-radius: 100px;
+    color: var(--faint);
+    transition: color 0.25s;
+  }
+  .lang-btn:hover {
+    color: var(--fg);
+  }
+  .lang-btn.on {
+    background: var(--wine);
+    color: var(--bone);
+  }
+  @media (max-width: 620px) {
+    .lang-btn {
+      padding-inline: 7px;
+    }
+  }
+</style>

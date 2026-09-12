@@ -1,0 +1,82 @@
+---
+/**
+ * Botón / enlace en forma de píldora.
+ *   - variant "solid"   → relleno vino (CTA del formulario).
+ *   - variant "outline" → borde, hover invierte (CTA del nav).
+ *   - size "sm" | "md".
+ *   - block → ancho completo.
+ * Renderiza <a> si se pasa `href`, si no <button>.
+ */
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'solid' | 'outline';
+  size?: 'sm' | 'md';
+  block?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'solid',
+  size = 'md',
+  block = false,
+  class: className,
+} = Astro.props;
+
+const classes = ['btn', variant, size, block && 'block', className];
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag class:list={classes} href={href} type={href ? undefined : type}>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-grid;
+    place-items: center;
+    font-family: var(--font-d);
+    font-weight: 500;
+    border-radius: 100px;
+    transition: all 0.3s var(--ease);
+    text-align: center;
+  }
+  .btn.md {
+    font-size: 15px;
+    padding-block: 15px;
+    padding-inline: 34px;
+  }
+  .btn.sm {
+    font-size: 13px;
+    padding-block: 8px;
+    padding-inline: 16px;
+  }
+  .btn.block {
+    width: 100%;
+  }
+
+  .btn.solid {
+    background: var(--wine);
+    color: var(--bone);
+  }
+  .btn.solid:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px -16px var(--wine);
+  }
+
+  .btn.outline {
+    border: 1px solid var(--fg);
+  }
+  .btn.outline:hover {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  @media (max-width: 620px) {
+    .btn.md {
+      width: 100%;
+    }
+  }
+</style>

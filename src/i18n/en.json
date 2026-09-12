@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "title": "Anna K Wines — From Spanish vineyards to Nordic tables",
+    "description": "Anna K. connects Spanish wineries with the markets of northern and central Europe: export, representation and wine consultancy. Taster and wine judge."
+  },
+  "nav": {
+    "about": "Anna",
+    "work": "What I do",
+    "services": "Services",
+    "certs": "Credentials",
+    "markets": "Markets",
+    "contact": "Contact",
+    "cta": "Let's talk"
+  },
+  "hero": {
+    "eyebrow": "Wine consultant · Bridging Spain ⇄ Northern & Central Europe",
+    "title": "From Spanish vineyards<br><span class='serif'>to Nordic tables.</span>",
+    "sub": "I'm Anna K. I connect Spanish wineries with the markets of northern and central Europe — export, representation and wine consultancy, done with judgement.",
+    "toast": {
+      "a": "Salud",
+      "b": "Skål",
+      "label": "One toast, two cultures"
+    }
+  },
+  "portrait": {
+    "cap": "Anna K · Taster & Wine judge",
+    "badge": "Wine that crosses borders"
+  },
+  "about": {
+    "idx": "01 — Who I am",
+    "title": "I live wine<br>from <span class='serif'>vine to glass.</span>",
+    "p1": "<span class='lead-in'>For over two decades</span> I've moved between vineyards, fairs and tasting rooms. I was raised between two worlds — the character of Spanish wine and the demands of the Nordic palate — and I've made that crossing my craft.",
+    "p2": "I help Spanish wineries tell their story well and bring their wines to Sweden, Norway, Denmark and Finland: from the first contact with an importer to a place on the monopoly shelf.",
+    "p3": "I taste, I teach and I judge. But above all I translate: I turn a winery's land and labour into a wine that a Northern table understands and desires.",
+    "quote": "“Good wine needs no translation. Reaching the right table, though — that it does.”",
+    "signRole": "Consultant, taster and wine judge"
+  },
+  "bridge": {
+    "idx": "02 — What I do",
+    "title": "A bridge between<br>those who <span class='serif'>make the wine</span><br>and those who <span class='serif'>uncork it.</span>",
+    "aside": "I don't sell cases. I build long-term relationships between winery and market, and I look after every step of the way.",
+    "left": {
+      "kick": "Spain",
+      "h": "The winery",
+      "p": "Families, high-altitude vineyards, appellations with history. Wine with soul that deserves to travel."
+    },
+    "ring": "Anna",
+    "right": {
+      "kick": "Northern Europe",
+      "h": "The table",
+      "p": "Importers, state monopolies, sommeliers and restaurants looking for something authentic."
+    }
+  },
+  "services": {
+    "idx": "03 — Services",
+    "title": "How I<br><span class='serif'>work with you.</span>",
+    "aside": "Four ways to work together, depending on where you are on the road.",
+    "items": [
+      {
+        "title": "Export",
+        "desc": "I open and manage sales channels across the Nordic countries — negotiating with importers and getting you onto state monopoly shelves.",
+        "tags": ["Importers", "Monopolies", "Logistics"]
+      },
+      {
+        "title": "Commercial representation",
+        "desc": "I'm the eyes and voice of your winery in the North: fairs, visits, tastings and continuous customer follow-up.",
+        "tags": ["Fairs", "Visits", "Follow-up"]
+      },
+      {
+        "title": "Wine consultancy",
+        "desc": "Positioning, portfolio, price and story. Together we decide which wines, for which market, with which narrative.",
+        "tags": ["Strategy", "Portfolio", "Branding"]
+      },
+      {
+        "title": "Tasting & training",
+        "desc": "Guided tastings, team training and technical selection. A judge's palate at the service of your project.",
+        "tags": ["Tastings", "Training", "Selection"]
+      }
+    ]
+  },
+  "certs": {
+    "idx": "04 — Credentials",
+    "title": "Judgement,<br><span class='serif'>accredited.</span>",
+    "aside": "A selection of industry certifications and distinctions. (We'll swap this list for your real ones.)",
+    "items": [
+      { "title": "WSET Level 3 Award in Wines", "org": "Wine & Spirit Education Trust" },
+      { "title": "WSET Diploma (Level 4)", "org": "Wine & Spirit Education Trust" },
+      { "title": "Certified Sommelier", "org": "Court of Master Sommeliers" },
+      { "title": "Spanish Wine Educator", "org": "Wine Academy of Spain" },
+      { "title": "Sherry Wine Specialist", "org": "Regulatory Council · Sherry" },
+      { "title": "Certified professional taster", "org": "Accredited tasting panel" }
+    ]
+  },
+  "judge": {
+    "idx": "05 — Wine judge",
+    "title": "At the <span class='serif'>jury</span> table.",
+    "aside": "I've judged at international competitions: tasting blind, scoring with rigour and defending a verdict. That same standard is what I bring to every winery.",
+    "stats": [
+      { "n": "12", "k": "International competitions as a juror" },
+      { "n": "2,000", "k": "Wines tasted blind and scored" },
+      { "n": "20", "k": "Years of experience in the trade" }
+    ],
+    "chips": [
+      "Blind tastings",
+      "International panels",
+      "Wine competitions",
+      "Technical selection",
+      "Sensory evaluation",
+      "Awards & medals"
+    ]
+  },
+  "markets": {
+    "idx": "06 — Markets",
+    "title": "Where the<br><span class='serif'>wine lands.</span>",
+    "main": "Key market",
+    "items": [
+      { "country": "Poland", "channel": "Import & HoReCa · open market" },
+      { "country": "Germany", "channel": "Import & retail · open market" },
+      { "country": "Finland", "channel": "Alko · state monopoly" },
+      { "country": "Sweden", "channel": "Systembolaget · state monopoly" },
+      { "country": "Norway", "channel": "Vinmonopolet · state monopoly" },
+      { "country": "Denmark", "channel": "Import & HoReCa" }
+    ],
+    "note": {
+      "big": "Northern and central Europe drink with curiosity and demand quality.",
+      "p": "Most of my exports go to <strong>Poland, Germany and Finland</strong>, with a growing presence across the rest of Scandinavia. I know both open markets and the <strong>state monopolies</strong>: their processes, their timelines and their buyers."
+    }
+  },
+  "testimonials": {
+    "idx": "07 — Trust",
+    "title": "What the<br><span class='serif'>wineries say.</span>",
+    "aside": "Long-term relationships, built bottle by bottle.",
+    "items": [
+      {
+        "quote": "“Anna didn't just open a market for us, she opened a culture. Today our wine is on tables across Stockholm.”",
+        "name": "Inland winery",
+        "meta": "D.O. · Spain (sample testimonial)"
+      },
+      {
+        "quote": "“She understands wine like a taster and business like an exporter. That mix is incredibly rare.”",
+        "name": "Nordic importer",
+        "meta": "Scandinavia (sample testimonial)"
+      }
+    ],
+    "logosLabel": "Wineries who trust"
+  },
+  "contact": {
+    "idx": "08 — Contact",
+    "title": "Shall we take your<br>wine <span class='serif'>North?</span>",
+    "aside": "Tell me about your winery and your wines. I reply personally within 48 h.",
+    "methods": {
+      "emailSub": "For proposals and wineries",
+      "waSub": "Quick reply",
+      "igSub": "Tastings, fairs and daily life",
+      "liSub": "Professional profile"
+    },
+    "reassure": "I reply personally within 48 h.",
+    "form": {
+      "heading": "Write to me about your winery",
+      "sub": "The more you tell me, the better I can help.",
+      "name": "Name",
+      "namePh": "Your name",
+      "winery": "Winery",
+      "wineryPh": "Your winery's name",
+      "email": "Email",
+      "emailPh": "you@winery.com",
+      "phone": "Phone",
+      "phonePh": "+34 600 000 000",
+      "market": "Market of interest",
+      "marketAny": "No preference",
+      "marketAll": "All of the above",
+      "service": "Service",
+      "serviceAny": "What do you need?",
+      "msg": "Tell me",
+      "msgPh": "Which wines you have and which market you'd like to reach…",
+      "btn": "Send message",
+      "privacy": "Your details are only used to reply to you.",
+      "ok": "✓ Got it. I'll write back very soon. Salud!"
+    }
+  },
+  "footer": {
+    "tag": "Spanish wine for the world · based in the North"
+  }
+}

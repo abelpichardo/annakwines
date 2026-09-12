@@ -1,0 +1,147 @@
+---
+/**
+ * Qué hago / Puente — head-row + "bridge stage": España · La bodega ⟷ anillo
+ * central "Anna" ⟷ Norte de Europa · La mesa. Colapsa a 1 columna ≤860px.
+ */
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="bridge" id="bridge" data-screen-label="Qué hago">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="head-lead">
+        <span class="sec-idx reveal">{t.bridge.idx}</span>
+        <h2 class="sec-title reveal" set:html={t.bridge.title} />
+      </div>
+      <p class="sec-aside reveal">{t.bridge.aside}</p>
+    </div>
+
+    <div class="bridge-stage">
+      <div class="bridge-side reveal">
+        <span class="bs-kick">{t.bridge.left.kick}</span>
+        <h3>{t.bridge.left.h}</h3>
+        <p>{t.bridge.left.p}</p>
+      </div>
+      <div class="bridge-mid reveal" aria-hidden="true">
+        <div class="ring"><span>{t.bridge.ring}</span></div>
+        <span class="dash"></span>
+      </div>
+      <div class="bridge-side right reveal">
+        <span class="bs-kick">{t.bridge.right.kick}</span>
+        <h3>{t.bridge.right.h}</h3>
+        <p>{t.bridge.right.p}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bridge {
+    padding-block: clamp(90px, 12vw, 150px);
+  }
+  .bridge-stage {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: clamp(20px, 4vw, 60px);
+  }
+  .bridge-side {
+    display: grid;
+    gap: 14px;
+    align-content: start;
+  }
+  .bs-kick {
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--wine);
+  }
+  .bridge-side h3 {
+    font-size: clamp(26px, 3.4vw, 46px);
+  }
+  .bridge-side p {
+    color: var(--muted);
+    max-width: 30ch;
+    line-height: 1.55;
+    font-size: 15.5px;
+  }
+  .bridge-side.right {
+    text-align: right;
+    justify-items: end;
+  }
+  .bridge-side.right p {
+    margin-inline-start: auto;
+  }
+
+  .bridge-mid {
+    display: grid;
+    place-items: center;
+    gap: 12px;
+  }
+  .ring {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 1px solid var(--hair);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-s);
+    font-style: italic;
+    font-size: 17px;
+    text-align: center;
+    line-height: 1.05;
+    position: relative;
+  }
+  .ring::before,
+  .ring::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    width: clamp(20px, 4vw, 60px);
+    height: 1px;
+    background: var(--hair);
+  }
+  .ring::before {
+    inset-inline-end: 100%;
+  }
+  .ring::after {
+    inset-inline-start: 100%;
+  }
+  .dash {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--wine);
+  }
+
+  @media (max-width: 860px) {
+    .bridge-stage {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      text-align: left;
+    }
+    .bridge-side.right {
+      text-align: left;
+      justify-items: start;
+    }
+    .bridge-side.right p {
+      margin-inline-start: 0;
+    }
+    .ring::before,
+    .ring::after {
+      display: none;
+    }
+  }
+  @media (max-width: 620px) {
+    .bridge {
+      padding-block: 72px;
+    }
+  }
+</style>

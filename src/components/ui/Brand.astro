@@ -1,0 +1,19 @@
+---
+/**
+ * Wordmark "Anna K Wines" ("Wines" en serif itálica color vino).
+ * `mono` muestra el recuadro "AK" (nav); en el footer se usa sin recuadro.
+ * Estilos en `.brand` (global.css) para compartirlos entre nav y footer.
+ */
+interface Props {
+  href?: string;
+  mono?: boolean;
+  class?: string;
+}
+
+const { href = '#top', mono = true, class: className } = Astro.props;
+---
+
+<a class:list={['brand', className]} href={href} aria-label="Anna K Wines">
+  {mono && <span class="mono" aria-hidden="true">AK</span>}
+  <span class="wm">Anna K <em>Wines</em></span>
+</a>

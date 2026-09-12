@@ -1,0 +1,65 @@
+/* ============================================================
+   Design tokens — Anna K Wines
+   Hueso cálido · Tinto profundo · editorial minimalista
+   Paleta en oklch + un hex de acento (--wine).
+   ============================================================ */
+
+:root {
+  /* Paleta base */
+  --bone: oklch(0.945 0.016 80);
+  --bone-2: oklch(0.905 0.02 78);
+  --paper: oklch(0.985 0.006 85); /* "plato" blanco del retrato */
+  --ink: oklch(0.215 0.012 40);
+  --ink-2: oklch(0.285 0.012 40);
+  --wine: #6e1023; /* acento principal */
+
+  /* Tokens semánticos (tema hueso) */
+  --bg: var(--bone);
+  --fg: var(--ink);
+  --muted: oklch(0.46 0.012 40);
+  --faint: oklch(0.6 0.01 40);
+  --hair: oklch(0.215 0.012 40 / 0.16);
+  --hair-2: oklch(0.215 0.012 40 / 0.08);
+  --panel: oklch(0.215 0.012 40 / 0.035);
+  --green: oklch(0.62 0.13 150);
+
+  /* Escala de espaciado (4 · 8 · 12 · 16 · 24 · 32 · 48 · 64) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Layout */
+  --maxw: 1320px;
+  --pad: 56px;
+  --content-width: 760px;
+
+  /* Tipografía */
+  --font-d: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-s: 'Instrument Serif', Georgia, serif;
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Padding lateral fluido por breakpoint (token responsivo). */
+@media (max-width: 980px) {
+  :root {
+    --pad: 30px;
+  }
+}
+@media (max-width: 620px) {
+  :root {
+    --pad: 22px;
+  }
+}
+@media (max-width: 380px) {
+  :root {
+    --pad: 16px;
+  }
+}

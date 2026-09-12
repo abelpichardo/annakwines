@@ -1,0 +1,219 @@
+---
+/**
+ * Formulario de contacto — pieza protagonista, en tarjeta elevada.
+ * Campos: Nombre+Bodega, Email+Teléfono, Mercado+Servicio (selects), Mensaje.
+ * El envío lo intercepta el script de interacciones (muestra `.form-ok` y
+ * resetea). NO hay backend: conectar a Resend/Formspree/endpoint propio.
+ */
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+import ChevronDown from '@lucide/astro/icons/chevron-down';
+import { marketMeta } from '@data/site';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const f = t.contact.form;
+
+const serviceCodes = ['export', 'rep', 'consult', 'tasting'] as const;
+---
+
+<form class="contact-form reveal" id="contact-form" novalidate>
+  <div class="cf-head">
+    <h3>{f.heading}</h3>
+    <p>{f.sub}</p>
+  </div>
+
+  <div class="cf-row">
+    <div class="field">
+      <label for="cf-name">{f.name}</label>
+      <input id="cf-name" type="text" name="name" placeholder={f.namePh} required />
+    </div>
+    <div class="field">
+      <label for="cf-winery">{f.winery}</label>
+      <input id="cf-winery" type="text" name="winery" placeholder={f.wineryPh} />
+    </div>
+  </div>
+
+  <div class="cf-row">
+    <div class="field">
+      <label for="cf-email">{f.email}</label>
+      <input id="cf-email" type="email" name="email" placeholder={f.emailPh} required />
+    </div>
+    <div class="field">
+      <label for="cf-phone">{f.phone}</label>
+      <input id="cf-phone" type="tel" name="phone" placeholder={f.phonePh} />
+    </div>
+  </div>
+
+  <div class="cf-row">
+    <div class="field">
+      <label for="cf-market">{f.market}</label>
+      <div class="select-wrap">
+        <select id="cf-market" name="market">
+          <option value="">{f.marketAny}</option>
+          {
+            t.markets.items.map((market, i) => (
+              <option value={marketMeta[i]?.code}>{market.country}</option>
+            ))
+          }
+          <option value="all">{f.marketAll}</option>
+        </select>
+        <Icon icon={ChevronDown} class="sel-arr" size={16} strokeWidth={2} />
+      </div>
+    </div>
+    <div class="field">
+      <label for="cf-service">{f.service}</label>
+      <div class="select-wrap">
+        <select id="cf-service" name="service">
+          <option value="">{f.serviceAny}</option>
+          {
+            t.services.items.map((service, i) => (
+              <option value={serviceCodes[i]}>{service.title}</option>
+            ))
+          }
+        </select>
+        <Icon icon={ChevronDown} class="sel-arr" size={16} strokeWidth={2} />
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="cf-message">{f.msg}</label>
+    <textarea id="cf-message" name="message" placeholder={f.msgPh} required></textarea>
+  </div>
+
+  <div class="cf-foot">
+    <Button type="submit" variant="solid">{f.btn}</Button>
+    <span class="cf-priv">{f.privacy}</span>
+  </div>
+
+  <p class="form-ok" id="form-ok" role="status" aria-live="polite">{f.ok}</p>
+</form>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: clamp(28px, 3.4vw, 46px);
+    background: var(--panel);
+    border: 1px solid var(--hair);
+    border-radius: 6px;
+    box-shadow: 0 40px 80px -60px rgba(40, 20, 15, 0.55);
+  }
+  .cf-head {
+    display: grid;
+    gap: 8px;
+  }
+  .cf-head h3 {
+    font-size: clamp(22px, 2.4vw, 30px);
+    letter-spacing: -0.02em;
+  }
+  .cf-head p {
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .cf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .field label {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field input,
+  .field textarea,
+  .field select {
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--fg);
+    background: transparent;
+    border: none;
+    border-block-end: 1px solid var(--hair);
+    padding-block: 11px;
+    padding-inline: 2px;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  .field textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--wine);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--faint);
+  }
+
+  .select-wrap {
+    position: relative;
+  }
+  .select-wrap select {
+    appearance: none;
+    cursor: pointer;
+    padding-inline-end: 24px;
+  }
+  .select-wrap select:required:invalid {
+    color: var(--faint);
+  }
+  .select-wrap :global(.sel-arr) {
+    position: absolute;
+    inset-inline-end: 2px;
+    inset-block-end: 12px;
+    color: var(--muted);
+    pointer-events: none;
+  }
+  .select-wrap select option {
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  .cf-foot {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-block-start: 4px;
+  }
+  .cf-priv {
+    font-size: 12.5px;
+    color: var(--faint);
+  }
+
+  .form-ok {
+    color: var(--green);
+    font-size: 14.5px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s;
+    margin-block-start: -6px;
+  }
+  .form-ok.show {
+    opacity: 1;
+  }
+
+  @media (max-width: 480px) {
+    .cf-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
