@@ -1,0 +1,23 @@
+---
+/**
+ * Home: presenta a Anna y bifurca hacia las dos patas del negocio.
+ * Deliberadamente corta — su trabajo es enrutar, no vender ninguna de las dos.
+ */
+import Hero from '@components/sections/home/Hero.astro';
+import Doors from '@components/sections/home/Doors.astro';
+import Anna from '@components/sections/home/Anna.astro';
+import Credentials from '@components/sections/home/Credentials.astro';
+import Contact from '@components/sections/shared/Contact.astro';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<Hero lang={lang} />
+<Doors lang={lang} />
+<Anna lang={lang} />
+<Credentials lang={lang} />
+<Contact lang={lang} />

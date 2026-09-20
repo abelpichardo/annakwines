@@ -2,31 +2,47 @@
 /**
  * Barra de navegación fija. Al superar el umbral de scroll recibe `.shrunk`
  * (vía el script de interacciones): menos padding + fondo con blur.
- * Izquierda: wordmark · Centro: enlaces (ocultos bajo `--to-lg`) · Derecha:
- * conmutador de idioma + CTA.
+ *
+ * Los enlaces se construyen desde el mapa de rutas, así que apuntan al slug
+ * correcto en cada idioma y marcan la página activa sin lógica duplicada.
  */
 import Brand from '@components/ui/Brand.astro';
 import Button from '@components/ui/Button.astro';
 import LanguageSwitcher from '@components/ui/LanguageSwitcher.astro';
-import { navLinks } from '@data/site';
+import { navPages } from '@data/site';
+import { pageUrl, type PageKey } from '@i18n/routes';
 import { useTranslations } from '@i18n/utils';
 import type { Lang } from '@i18n/ui';
 
 interface Props {
   lang: Lang;
+  page: PageKey;
 }
-const { lang } = Astro.props;
+const { lang, page } = Astro.props;
 const t = useTranslations(lang);
+
+/* La página legal no tiene sección de contacto: el CTA vuelve a la home. */
+const contactHref = page === 'privacy' ? `${pageUrl('home', lang)}#contact` : '#contact';
 ---
 
 <nav class="nav" id="nav">
-  <Brand href="#top" />
+  <Brand href={pageUrl('home', lang)} />
   <div class="mid">
-    {navLinks.map((link) => <a href={link.href}>{t.nav[link.key]}</a>)}
+    {
+      navPages.map((key) => (
+        <a
+          href={pageUrl(key, lang)}
+          class:list={{ on: key === page }}
+          aria-current={key === page ? 'page' : undefined}
+        >
+          {t.nav[key]}
+        </a>
+      ))
+    }
   </div>
   <div class="right">
-    <LanguageSwitcher current={lang} />
-    <Button href="#contact" variant="outline" size="sm">{t.nav.cta}</Button>
+    <LanguageSwitcher current={lang} page={page} />
+    <Button href={contactHref} variant="outline" size="sm">{t.nav.cta}</Button>
   </div>
 </nav>
 
@@ -69,7 +85,7 @@ const t = useTranslations(lang);
     transition: color var(--dur-fast) var(--ease);
   }
 
-  /* Subrayado que crece desde la izquierda al pasar el ratón. */
+  /* Subrayado que crece desde la izquierda; en la página activa ya está. */
   .mid a::after {
     content: '';
     position: absolute;
@@ -81,11 +97,13 @@ const t = useTranslations(lang);
     transition: inline-size var(--dur-base) var(--ease);
   }
 
-  .mid a:hover {
+  .mid a:hover,
+  .mid a.on {
     color: var(--fg);
   }
 
-  .mid a:hover::after {
+  .mid a:hover::after,
+  .mid a.on::after {
     inline-size: 100%;
   }
 

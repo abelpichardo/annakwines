@@ -11,7 +11,7 @@ export default defineConfig({
   site: SITE,
   i18n: {
     defaultLocale: 'es',
-    locales: ['es', 'en', 'sv'],
+    locales: ['es', 'en'],
     routing: {
       // prefixDefaultLocale: false
       //   → el idioma por defecto (es) vive en la raíz: "/", "/#contact".
@@ -27,7 +27,7 @@ export default defineConfig({
     sitemap({
       i18n: {
         defaultLocale: 'es',
-        locales: { es: 'es-ES', en: 'en', sv: 'sv-SE' },
+        locales: { es: 'es-ES', en: 'en' },
       },
     }),
   ],

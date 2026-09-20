@@ -1,0 +1,195 @@
+---
+/**
+ * Contacto — compartido por las tres páginas de contenido.
+ * Izquierda: correo directo, redes y reassurance. Derecha: formulario.
+ */
+import Section from '@components/ui/Section.astro';
+import ContactForm from '@components/sections/shared/ContactForm.astro';
+import SocialLinks from '@components/ui/SocialLinks.astro';
+import Icon from '@components/ui/Icon.astro';
+import Mail from '@lucide/astro/icons/mail';
+import { contact, social } from '@data/site';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+  /** Titular propio de la página. Si se omite, usa el genérico. */
+  title?: string;
+  /** Texto de apoyo propio de la página. */
+  sub?: string;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+/* Cada pata cierra con su propia llamada — "¿Hablamos de tu bodega?" convierte
+   mejor que un "Contacto" genérico — pero comparten el mismo formulario. */
+const title = Astro.props.title ?? t.contact.title;
+const sub = Astro.props.sub ?? t.contact.aside;
+---
+
+<Section id="contact" label="Contacto" variant="tail">
+  <div class="head">
+    <span class="idx reveal">{t.contact.idx}</span>
+    <h2 class="big reveal" set:html={title} />
+    <p class="aside reveal">{sub}</p>
+  </div>
+
+  <div class="grid">
+    <div class="side">
+      <a class="mail reveal" href={`mailto:${contact.email}`}>
+        <span class="ic"><Icon icon={Mail} /></span>
+        <span class="mail-text">
+          <span class="addr">{contact.email}</span>
+          <span class="sub">{t.contact.methods.emailSub}</span>
+        </span>
+        <span class="arr" aria-hidden="true">↗</span>
+      </a>
+
+      <div class="follow reveal">
+        <span class="label">{t.common.followLabel}</span>
+        <SocialLinks links={social.annak} />
+      </div>
+
+      <div class="reassure reveal">
+        <span class="dot" aria-hidden="true"></span>
+        <span>{t.contact.reassure}</span>
+      </div>
+    </div>
+
+    <ContactForm lang={lang} />
+  </div>
+</Section>
+
+<style>
+  .head {
+    display: grid;
+    gap: var(--space-lg);
+    max-inline-size: var(--content-width);
+    padding-block-end: var(--space-4xl);
+  }
+
+  .idx {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .big {
+    font-size: var(--text-7xl);
+    line-height: 0.95;
+    letter-spacing: var(--tracking-tighter);
+  }
+
+  .big :global(.serif) {
+    color: var(--accent);
+  }
+
+  .aside {
+    color: var(--muted);
+    font-size: var(--text-xl);
+    max-inline-size: var(--measure-aside);
+    line-height: var(--leading-normal);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    gap: clamp(var(--space-xl), 5vw, var(--space-5xl));
+    align-items: start;
+  }
+
+  .side {
+    display: grid;
+    align-content: start;
+    gap: var(--space-xl);
+  }
+
+  .mail {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-md);
+    padding-block: var(--space-lg);
+    border-block: var(--border-hair) solid var(--hair);
+    transition: padding-inline-start var(--dur-base) var(--ease);
+  }
+
+  .ic {
+    inline-size: var(--size-icon);
+    block-size: var(--size-icon);
+    color: var(--accent);
+  }
+
+  .mail-text {
+    display: grid;
+    gap: var(--space-3xs);
+  }
+
+  .addr {
+    font-weight: var(--weight-medium);
+    font-size: var(--text-xl);
+  }
+
+  .sub {
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .arr {
+    font-family: var(--font-s);
+    font-style: italic;
+    color: var(--faint);
+    transition:
+      transform var(--dur-base) var(--ease),
+      color var(--dur-base) var(--ease);
+  }
+
+  .mail:hover {
+    padding-inline-start: var(--space-xs);
+  }
+
+  .mail:hover .arr {
+    color: var(--accent);
+    transform: translate(var(--space-2xs), calc(var(--space-2xs) * -1));
+  }
+
+  .follow {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .label {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .reassure {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-base);
+    color: var(--muted);
+  }
+
+  .dot {
+    inline-size: var(--size-dot);
+    block-size: var(--size-dot);
+    border-radius: var(--radius-circle);
+    background: var(--green);
+    box-shadow: 0 0 0 var(--space-2xs) color-mix(in oklab, var(--green) 22%, transparent);
+  }
+
+  @media (--to-lg) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+  }
+</style>

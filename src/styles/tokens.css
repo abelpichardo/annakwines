@@ -24,6 +24,7 @@
   --wine: #6e1023; /* acento principal */
   --wine-soft: oklch(0.78 0.1 30); /* vino legible sobre fondo tinta */
   --green: oklch(0.62 0.13 150);
+  --red: oklch(0.55 0.19 25);
 
   /* Escala de espaciado (base 4px). Único origen de gaps y paddings. */
   --space-3xs: 2px;
@@ -118,6 +119,8 @@
   --hair: oklch(0.215 0.012 40 / 0.16);
   --hair-2: oklch(0.215 0.012 40 / 0.08);
   --panel: oklch(0.215 0.012 40 / 0.035);
+  --ok: var(--green);
+  --danger: var(--red);
 
   /* Sombras */
   --shadow-card: 0 40px 80px -60px rgba(40, 20, 15, 0.55);
@@ -154,4 +157,6 @@
   --hair: oklch(0.945 0.016 80 / 0.2);
   --hair-2: oklch(0.945 0.016 80 / 0.16);
   --panel: oklch(0.945 0.016 80 / 0.06);
+  --ok: oklch(0.78 0.14 150);
+  --danger: oklch(0.72 0.17 25);
 }

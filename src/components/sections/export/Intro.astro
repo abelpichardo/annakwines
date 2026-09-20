@@ -1,0 +1,84 @@
+---
+/**
+ * Cómo trabajamos: la red de profesionales freelance y los dos perfiles de
+ * cliente (bodega que externaliza / empresa internacional que quiere entrar
+ * en España).
+ */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section id="how" label="Cómo trabajamos">
+  <SectionHeader idx={t.export.intro.idx} title={t.export.intro.title} />
+
+  <div class="grid">
+    <p class="lead reveal">{t.export.intro.p1}</p>
+    <ul class="bullets">
+      {
+        t.export.intro.bullets.map((bullet) => (
+          <li class="reveal">
+            <span class="mark" aria-hidden="true" />
+            <span>{bullet}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(var(--space-xl), 5vw, var(--space-5xl));
+    align-items: start;
+  }
+
+  .lead {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-snug);
+    color: var(--fg-body);
+    font-family: var(--font-s);
+    font-style: italic;
+  }
+
+  .bullets {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .bullets li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-md);
+    align-items: start;
+    font-size: var(--text-xl);
+    line-height: var(--leading-relaxed);
+    color: var(--fg-body);
+  }
+
+  /* Filete corto que hace de viñeta. La caja mide exactamente una línea
+     (`1lh`) y el filete se pinta centrado en ella como fondo: así queda
+     alineado con la primera línea de texto sin recurrir a un margin. */
+  .mark {
+    inline-size: var(--space-lg);
+    block-size: 1lh;
+    background: linear-gradient(var(--accent), var(--accent)) left center / 100% var(--border-hair)
+      no-repeat;
+  }
+
+  @media (--to-lg) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+  }
+</style>

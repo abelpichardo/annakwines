@@ -1,0 +1,172 @@
+---
+/**
+ * Formulario de contacto, en tarjeta elevada.
+ * Campos: Nombre+Empresa, Email+Teléfono, Motivo (select), Mensaje.
+ *
+ * El "motivo" cubre las dos patas del negocio en un solo formulario, así que
+ * no hace falta duplicarlo por página.
+ *
+ * El marcado de cada campo lo pone `Field`, que resuelve el cableado de
+ * accesibilidad. La validación y el formateo del teléfono los añade
+ * `scripts/form.ts`: los mensajes viajan en `data-msg-*` ya traducidos, para
+ * que el script no necesite conocer la i18n.
+ *
+ * PENDIENTE: no hay backend ni protección anti-bot — el envío se simula en
+ * cliente. Conectar a un endpoint real y añadir verificación en servidor
+ * antes de publicar.
+ */
+import Card from '@components/ui/Card.astro';
+import Button from '@components/ui/Button.astro';
+import Field from '@components/ui/Field.astro';
+import { pageUrl } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const f = t.contact.form;
+---
+
+<Card
+  as="form"
+  variant="raised"
+  class="form reveal"
+  id="contact-form"
+  novalidate
+  data-contact-form
+  data-msg-required={f.errors.required}
+  data-msg-email={f.errors.email}
+  data-msg-phone={f.errors.phone}
+  data-msg-short={f.errors.short}
+>
+  <div class="head">
+    <h3>{f.heading}</h3>
+    <p>{f.sub}</p>
+  </div>
+
+  <div class="row">
+    <Field
+      id="cf-name"
+      name="name"
+      label={f.name}
+      placeholder={f.namePh}
+      autocomplete="name"
+      required
+    />
+    <Field id="cf-org" name="org" label={f.org} placeholder={f.orgPh} autocomplete="organization" />
+  </div>
+
+  <div class="row">
+    <Field
+      id="cf-email"
+      name="email"
+      type="email"
+      label={f.email}
+      placeholder={f.emailPh}
+      autocomplete="email"
+      required
+    />
+    <Field
+      id="cf-phone"
+      name="phone"
+      type="tel"
+      label={f.phone}
+      placeholder={f.phonePh}
+      autocomplete="tel"
+      mask="phone"
+    />
+  </div>
+
+  <Field
+    id="cf-topic"
+    name="topic"
+    type="select"
+    label={f.topic}
+    emptyOption={f.topicAny}
+    options={f.topics}
+  />
+
+  <Field
+    id="cf-message"
+    name="message"
+    type="textarea"
+    label={f.msg}
+    placeholder={f.msgPh}
+    maxlength={1200}
+    counter
+    required
+  />
+
+  <div class="foot">
+    <Button type="submit" variant="solid">{f.btn}</Button>
+    <a class="priv" href={pageUrl('privacy', lang)}>{f.privacy}</a>
+  </div>
+
+  <p class="ok" id="form-ok" data-form-status role="status" aria-live="polite">{f.ok}</p>
+</Card>
+
+<style>
+  .head {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .head h3 {
+    font-size: var(--text-3xl);
+    letter-spacing: -0.02em;
+  }
+
+  .head p {
+    font-size: var(--text-md);
+    color: var(--muted);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  /* Flex (no grid) a propósito: el botón y el enlace legal deben poder
+     envolver conservando cada uno su ancho natural. */
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .priv {
+    font-size: var(--text-xs);
+    color: var(--faint);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .priv:hover {
+    color: var(--muted);
+  }
+
+  /* Ocupa su hueco desde el principio: al mostrarse no desplaza el botón. */
+  .ok {
+    color: var(--ok);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease);
+  }
+
+  .ok.show {
+    opacity: 1;
+  }
+
+  @media (--to-sm) {
+    .row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

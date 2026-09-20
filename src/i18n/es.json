@@ -1,184 +1,318 @@
 {
   "meta": {
-    "title": "Anna K Wines — Del viñedo español a la mesa nórdica",
-    "description": "Anna K. conecta bodegas españolas con los mercados del norte y centro de Europa: exportación, representación y consultoría de vino. Catadora y juez de vinos."
+    "home": {
+      "title": "Anna K Wines · The Spanish Wine Connection",
+      "description": "Servicios comerciales de vino desde 2011. Exportación y desarrollo internacional para bodegas españolas, y catas y enoturismo en la Costa Blanca. Anna Granqvist, WSET Diploma."
+    },
+    "export": {
+      "title": "Exportación y desarrollo internacional · Anna K Wines",
+      "description": "Export manager externo para bodegas españolas sin departamento propio. Representación comercial, desarrollo de negocio y análisis de mercado en el sector del vino, en todo el mundo."
+    },
+    "tastings": {
+      "title": "Costa Blanca Wine Club · Catas y enoturismo",
+      "description": "Catas, maridajes, talleres de sommelier en casa, visitas a bodegas y viajes de vino por España. En la Costa Blanca, con Anna Granqvist, WSET Diploma."
+    },
+    "privacy": {
+      "title": "Política de privacidad · Anna K Wines",
+      "description": "Información sobre el tratamiento de datos personales en annakwines.com, conforme al Reglamento (UE) 2016/679."
+    }
   },
   "nav": {
-    "about": "Anna",
-    "work": "Qué hago",
-    "services": "Servicios",
-    "certs": "Acreditaciones",
-    "markets": "Mercados",
+    "home": "Inicio",
+    "export": "Exportación",
+    "tastings": "Catas y enoturismo",
     "contact": "Contacto",
+    "privacy": "Privacidad",
     "cta": "Hablemos"
   },
-  "hero": {
-    "eyebrow": "Consultora de vino · Puente España ⇄ Norte y centro de Europa",
-    "title": "Del viñedo español<br><span class='serif'>a la mesa nórdica.</span>",
-    "sub": "Soy Anna K. Conecto bodegas españolas con los mercados del norte y el centro de Europa —exportación, representación y consultoría de vino con criterio—.",
-    "toast": {
-      "a": "Salud",
-      "b": "Skål",
-      "label": "Un brindis, dos culturas"
-    }
+  "common": {
+    "followLabel": "Síguenos",
+    "backHome": "Volver al inicio",
+    "moderation": "Wine in Moderation",
+    "moderationNote": "Disfruta del vino con moderación."
   },
   "portrait": {
-    "cap": "Anna K · Catadora & Juez de vinos",
-    "badge": "Vino que cruza fronteras"
+    "alt": "Retrato de Anna Granqvist",
+    "cap": "Anna Granqvist · Alicante",
+    "badge": "WSET Diploma"
   },
-  "about": {
-    "idx": "01 — Quién soy",
-    "title": "Vivo el vino<br>de <span class='serif'>cepa a copa.</span>",
-    "p1": "<span class='lead-in'>Llevo más de dos décadas</span> entre viñedos, ferias y salas de cata. Nací entre dos mundos —el carácter del vino español y la exigencia del paladar nórdico— y he hecho de ese cruce mi oficio.",
-    "p2": "Ayudo a bodegas españolas a contar bien su historia y a llevar sus vinos a Suecia, Noruega, Dinamarca y Finlandia: desde el primer contacto con el importador hasta el lineal del monopolio.",
-    "p3": "Cato, formo y juzgo. Pero sobre todo, traduzco: convierto la tierra y el trabajo de una bodega en un vino que una mesa del Norte entiende y desea.",
-    "quote": "“El buen vino no necesita traducción. Pero llegar hasta la mesa correcta, sí.”",
-    "signRole": "Consultora, catadora y juez de vinos"
-  },
-  "bridge": {
-    "idx": "02 — Qué hago",
-    "title": "Un puente entre<br>quien <span class='serif'>hace el vino</span><br>y quien lo <span class='serif'>descorcha.</span>",
-    "aside": "No vendo cajas. Construyo relaciones de largo plazo entre la bodega y el mercado, y cuido cada paso del camino.",
-    "left": {
-      "kick": "España",
-      "h": "La bodega",
-      "p": "Familias, viñedos de altura, denominaciones con historia. Vino con alma que merece viajar."
+  "home": {
+    "hero": {
+      "eyebrow": "The Spanish Wine Connection",
+      "title": "El vino español,<br /><em class=\"serif\">en las dos direcciones</em>",
+      "sub": "Desde 2011 ayudo a bodegas españolas a llegar a mercados de todo el mundo, y a quienes viven en la Costa Blanca a descubrir lo que hay dentro de la botella.",
+      "facts": ["Desde 2011", "WSET Diploma", "Alicante, España"]
     },
-    "ring": "Anna",
-    "right": {
-      "kick": "Norte de Europa",
-      "h": "La mesa",
-      "p": "Importadores, monopolios estatales, sumilleres y restaurantes que buscan algo auténtico."
+    "doors": {
+      "idx": "01",
+      "title": "Dos formas de trabajar conmigo",
+      "aside": "Dos actividades distintas, el mismo conocimiento del vino español detrás de las dos.",
+      "items": [
+        {
+          "kick": "Para bodegas y empresas",
+          "title": "Exportación y desarrollo internacional",
+          "desc": "Actúo como export manager externo para bodegas sin departamento propio, y represento a empresas internacionales que quieren llegar al mercado español.",
+          "cta": "Ver servicios para bodegas"
+        },
+        {
+          "kick": "Para amantes del vino",
+          "title": "Catas y enoturismo en la Costa Blanca",
+          "desc": "Catas, maridajes, talleres en casa y viajes de vino por España. Para grupos, empresas y cualquiera con curiosidad por lo que bebe.",
+          "cta": "Ver catas y experiencias"
+        }
+      ]
+    },
+    "anna": {
+      "idx": "02",
+      "title": "Quién está<br /><em class=\"serif\">detrás</em>",
+      "p1": "<em class=\"lead-in\">Anna Granqvist</em> es sueca y lleva más de veinte años viviendo en España. Se dedica al vino profesionalmente desde 2011.",
+      "p2": "Es formadora de los cursos internacionales WSET (Wine &amp; Spirit Education Trust), con WSET Diploma, y formadora acreditada en vinos de Jerez, Montilla-Moriles, Canarias, Cava y Alicante.",
+      "quote": "Conozco a los productores, sus viñedos y sus vinos. Eso es lo que llevo a un mercado internacional y lo que cuento en una cata.",
+      "p3": "En su trayectoria: la representación comercial del grupo editorial Meininger Verlag en España, el lanzamiento de un proyecto de venta de vino español online en 2012, la puesta en marcha de un centro de formación WSET y la exportación de vinos de bodegas españolas a todo el mundo.",
+      "signRole": "Fundadora · WSET Diploma"
+    },
+    "certs": {
+      "idx": "03",
+      "title": "Formación y<br /><em class=\"serif\">acreditaciones</em>",
+      "aside": "La base técnica sobre la que se apoyan las dos actividades.",
+      "items": [
+        {
+          "title": "WSET Diploma",
+          "org": "Wine & Spirit Education Trust"
+        },
+        {
+          "title": "Formadora WSET 1 · 2 · 3",
+          "org": "Desde 2016"
+        },
+        {
+          "title": "Vinos de Jerez",
+          "org": "Formadora acreditada"
+        },
+        {
+          "title": "Montilla-Moriles",
+          "org": "Formadora acreditada"
+        },
+        {
+          "title": "Cava",
+          "org": "Formadora acreditada"
+        },
+        {
+          "title": "Alicante y Canarias",
+          "org": "Formadora acreditada"
+        }
+      ]
     }
   },
-  "services": {
-    "idx": "03 — Servicios",
-    "title": "Cómo<br><span class='serif'>acompaño.</span>",
-    "aside": "Cuatro maneras de trabajar juntos, según en qué punto del camino estés.",
-    "items": [
-      {
-        "title": "Exportación",
-        "desc": "Abro y gestiono canales de venta en los países nórdicos. Negociación con importadores y entrada en monopolios estatales.",
-        "tags": ["Importadores", "Monopolios", "Logística"]
-      },
-      {
-        "title": "Representación comercial",
-        "desc": "Soy los ojos y la voz de tu bodega en el Norte: ferias, visitas, presentaciones y seguimiento continuo del cliente.",
-        "tags": ["Ferias", "Visitas", "Seguimiento"]
-      },
-      {
-        "title": "Consultoría de vino",
-        "desc": "Posicionamiento, cartera, precio y relato. Decidimos juntos qué vinos, para qué mercado y con qué historia.",
-        "tags": ["Estrategia", "Cartera", "Branding"]
-      },
-      {
-        "title": "Cata & formación",
-        "desc": "Catas guiadas, formación de equipos y selección técnica. El criterio de una juez al servicio de tu proyecto.",
-        "tags": ["Catas", "Formación", "Selección"]
-      }
-    ]
-  },
-  "certs": {
-    "idx": "04 — Acreditaciones",
-    "title": "Criterio<br><span class='serif'>acreditado.</span>",
-    "aside": "Algunas de las certificaciones y distinciones del sector. (Ajustaremos esta lista con las tuyas reales.)",
-    "items": [
-      { "title": "WSET Level 3 Award in Wines", "org": "Wine & Spirit Education Trust" },
-      { "title": "WSET Diploma (Level 4)", "org": "Wine & Spirit Education Trust" },
-      { "title": "Certified Sommelier", "org": "Court of Master Sommeliers" },
-      { "title": "Spanish Wine Educator", "org": "Wine Academy of Spain" },
-      { "title": "Especialista en vinos de Jerez", "org": "Consejo Regulador · Sherry" },
-      { "title": "Cata profesional certificada", "org": "Panel de cata acreditado" }
-    ]
-  },
-  "judge": {
-    "idx": "05 — Juez de vinos",
-    "title": "En la mesa del <span class='serif'>jurado.</span>",
-    "aside": "He sido juez en concursos internacionales: catar a ciegas, puntuar con rigor y defender un criterio. Esa misma exigencia es la que llevo a cada bodega.",
-    "stats": [
-      { "n": "12", "k": "Concursos internacionales como jurado" },
-      { "n": "2.000", "k": "Vinos catados a ciegas y puntuados" },
-      { "n": "20", "k": "Años de experiencia en el sector" }
-    ],
-    "chips": [
-      "Catas a ciegas",
-      "Paneles internacionales",
-      "Concursos de vino",
-      "Selección técnica",
-      "Evaluación sensorial",
-      "Premios y medallas"
-    ]
-  },
-  "markets": {
-    "idx": "06 — Mercados",
-    "title": "Donde llega<br>el <span class='serif'>vino.</span>",
-    "main": "Mercado principal",
-    "items": [
-      { "country": "Polonia", "channel": "Importación & HoReCa · mercado abierto" },
-      { "country": "Alemania", "channel": "Importación & retail · mercado abierto" },
-      { "country": "Finlandia", "channel": "Alko · monopolio estatal" },
-      { "country": "Suecia", "channel": "Systembolaget · monopolio estatal" },
-      { "country": "Noruega", "channel": "Vinmonopolet · monopolio estatal" },
-      { "country": "Dinamarca", "channel": "Importación & HoReCa" }
-    ],
-    "note": {
-      "big": "El norte y el centro de Europa beben con curiosidad y exigen calidad.",
-      "p": "La mayor parte de mis exportaciones van a <strong>Polonia, Alemania y Finlandia</strong>, con presencia creciente en el resto de Escandinavia. Conozco tanto los mercados abiertos como los <strong>monopolios estatales</strong>: sus procesos, sus tiempos y a sus compradores."
+  "export": {
+    "hero": {
+      "eyebrow": "Para bodegas y empresas",
+      "title": "Exportación y desarrollo de<br /><em class=\"serif\">negocio internacional</em>",
+      "sub": "Servicios comerciales, desarrollo de negocio internacional y análisis de mercado en el sector del vino.",
+      "facts": ["Desde 2011", "Alcance mundial", "Export manager externo"]
+    },
+    "intro": {
+      "idx": "01",
+      "title": "Cómo trabajamos",
+      "p1": "Con una amplia red internacional de profesionales freelance del negocio del vino, ofrecemos servicios de alta calidad que se adaptan a las necesidades de cada cliente.",
+      "bullets": [
+        "Si eres una bodega y necesitas externalizar tu actividad comercial, podemos ayudarte.",
+        "Si eres una empresa internacional que quiere llegar al mercado español y a sus productores, podemos representarte."
+      ]
+    },
+    "services": {
+      "idx": "02",
+      "title": "Servicios",
+      "aside": "Se contratan por separado o como un paquete continuado.",
+      "items": [
+        {
+          "title": "Representación comercial",
+          "desc": "Representación de ventas para clientes internacionales dentro del sector del vino.",
+          "tags": ["Ventas", "Internacional"]
+        },
+        {
+          "title": "Desarrollo de negocio internacional",
+          "desc": "Apertura y consolidación de mercados, análisis y estrategia de entrada.",
+          "tags": ["Estrategia", "Mercados"]
+        },
+        {
+          "title": "Actividad comercial externalizada",
+          "desc": "Para bodegas pequeñas que no pueden sostener una estructura comercial propia.",
+          "tags": ["Bodegas", "Outsourcing"]
+        },
+        {
+          "title": "Marketing directo internacional",
+          "desc": "Acciones de marketing directo dirigidas a compradores y distribuidores.",
+          "tags": ["Marketing"]
+        },
+        {
+          "title": "Traducción",
+          "desc": "Traducción especializada en vino y documentación comercial.",
+          "tags": ["Idiomas"]
+        }
+      ]
+    },
+    "manager": {
+      "idx": "03",
+      "title": "Export manager<br /><em class=\"serif\">externo</em>",
+      "p1": "Actuamos como departamento de exportación para bodegas que no tienen uno propio.",
+      "p2": "Desarrollamos su red de distribución en mercados internacionales buscando sinergias entre bodegas de distintas denominaciones de origen: nunca creando competencia entre ellas, sino una representación equilibrada de zonas y estilos de vino diferentes.",
+      "reachLabel": "Alcance",
+      "reach": "Exportamos a todo el mundo, con especial presencia en Europa."
+    },
+    "clients": {
+      "idx": "04",
+      "title": "Con quién<br /><em class=\"serif\">trabajamos</em>",
+      "aside": "Productores con capacidad para exportar, pero no para mantener un export manager en exclusiva.",
+      "p": "Bodegas familiares y de pequeña producción: viñedo viejo, elaboración cuidada y calidad alta. Trabajamos con denominaciones muy distintas entre sí, de forma que cada bodega suma a la propuesta en lugar de competir con las demás.",
+      "dosLabel": "Denominaciones representadas"
+    },
+    "cta": {
+      "title": "¿Hablamos de tu bodega?",
+      "sub": "Cuéntame qué mercados te interesan y te digo con franqueza si puedo ayudarte."
     }
   },
-  "testimonials": {
-    "idx": "07 — Confianza",
-    "title": "Lo que dicen<br>las <span class='serif'>bodegas.</span>",
-    "aside": "Relaciones de largo plazo, construidas botella a botella.",
-    "items": [
-      {
-        "quote": "“Anna no nos abrió un mercado, nos abrió una cultura. Hoy nuestro vino está en la mesa de medio Estocolmo.”",
-        "name": "Bodega del interior",
-        "meta": "D.O. · España (testimonio de ejemplo)"
-      },
-      {
-        "quote": "“Entiende el vino como una catadora y el negocio como una exportadora. Esa mezcla es rarísima.”",
-        "name": "Importador nórdico",
-        "meta": "Escandinavia (testimonio de ejemplo)"
-      }
-    ],
-    "logosLabel": "Bodegas que confían"
+  "tastings": {
+    "hero": {
+      "brand": "Costa Blanca Wine Club",
+      "eyebrow": "by Anna K Wines",
+      "title": "Catas y enoturismo<br /><em class=\"serif\">en la Costa Blanca</em>",
+      "sub": "Catas, maridajes, talleres en casa, visitas a bodegas y viajes de vino por España. Con una formadora WSET Diploma que conoce a los productores en persona.",
+      "facts": ["Costa Blanca", "WSET Diploma", "Grupos abiertos y a medida"]
+    },
+    "offer": {
+      "idx": "01",
+      "title": "Catas y<br /><em class=\"serif\">formación</em>",
+      "aside": "En distintos puntos de la Costa Blanca, para grupos abiertos o cerrados.",
+      "items": [
+        {
+          "title": "Catas y maridajes",
+          "desc": "Para grupos de wine-lovers, por el puro placer de probar vinos españoles de todo el territorio o de una zona concreta. También en formato formativo: desde la iniciación a la cata hasta la teoría de elaboración y un repaso de las uvas y vinos de referencia del mundo.",
+          "tags": ["Grupos", "Maridaje"]
+        },
+        {
+          "title": "Catas a medida y eventos de empresa",
+          "desc": "Experiencias diseñadas para cada grupo. Funcionan muy bien como team building: una forma agradable de aprender algo de vino y de maridaje, con tapas emparejadas con cada vino.",
+          "tags": ["Empresas", "Team building"]
+        },
+        {
+          "title": "Talleres de sommelier en casa",
+          "desc": "Para grupos pequeños que quieren abrir botellas y descubrir la historia de cada productor, y para grupos grandes que buscan una forma distinta de relajarse o de hacer dinámica de grupo.",
+          "tags": ["En casa", "Grupos"]
+        },
+        {
+          "title": "Curso WSET Nivel 1",
+          "desc": "Formación oficial con certificado de WSET London: un día de curso con un pequeño examen final. Pensado para consumidores, sin conocimientos previos.",
+          "tags": ["Certificado", "Un día"]
+        }
+      ]
+    },
+    "trips": {
+      "idx": "02",
+      "title": "Visitas y<br /><em class=\"serif\">viajes de vino</em>",
+      "aside": "Llave en mano: transporte, contenido, cata y comida.",
+      "items": [
+        {
+          "kick": "Un día",
+          "title": "Visita y cata en bodega",
+          "desc": "Visitamos una bodega con acceso a productores fuera del circuito habitual de enoturismo, esos a los que no va todo el mundo. Viaje, cata y comida incluidos, hablando de vino durante el trayecto. Puede combinarse con la visita a un pueblo con encanto, un mirador o una pequeña caminata."
+        },
+        {
+          "kick": "Dos o tres días",
+          "title": "Enoturismo por España y Portugal",
+          "desc": "Viajes desde la Costa Blanca a distintas zonas vitivinícolas. Grupos reducidos, bodegas con algo especial que normalmente no reciben visitas, y la gastronomía de cada zona. Siempre con paradas en pueblos, naturaleza o puntos de interés cultural, y con Anna acompañando en todo momento."
+        }
+      ]
+    },
+    "social": {
+      "idx": "03",
+      "title": "Las próximas catas<br /><em class=\"serif\">se anuncian aquí</em>",
+      "p": "Publicamos las fechas, los grupos abiertos y las plazas disponibles en redes. Es la forma más rápida de enterarte.",
+      "soon": "Cuenta en preparación"
+    },
+    "cta": {
+      "title": "¿Organizamos algo?",
+      "sub": "Cuéntame qué grupo sois y qué os apetece, y te propongo un formato."
+    }
   },
   "contact": {
-    "idx": "08 — Contacto",
-    "title": "¿Llevamos tu vino<br>al <span class='serif'>Norte?</span>",
-    "aside": "Cuéntame tu bodega y tus vinos. Respondo personalmente en menos de 48 h.",
+    "idx": "05",
+    "title": "Hablemos<br /><em class=\"serif\">de vino</em>",
+    "aside": "Para bodegas, empresas o grupos que quieran organizar una cata.",
+    "reassure": "Respondo en menos de 48 horas.",
     "methods": {
-      "emailSub": "Para propuestas y bodegas",
-      "waSub": "Respuesta rápida",
-      "igSub": "Catas, ferias y día a día",
+      "emailSub": "La vía más directa",
+      "igSub": "Día a día y novedades",
+      "fbSub": "Eventos y próximas catas",
       "liSub": "Perfil profesional"
     },
-    "reassure": "Respondo personalmente en menos de 48 h.",
     "form": {
-      "heading": "Escríbeme sobre tu bodega",
-      "sub": "Cuanto más me cuentes, mejor podré ayudarte.",
+      "heading": "Cuéntame",
+      "sub": "Rellena lo que puedas; con el correo y un par de líneas me vale.",
       "name": "Nombre",
       "namePh": "Tu nombre",
-      "winery": "Bodega",
-      "wineryPh": "Nombre de tu bodega",
+      "org": "Empresa o bodega",
+      "orgPh": "Opcional",
       "email": "Email",
-      "emailPh": "tucorreo@bodega.com",
+      "emailPh": "tu@email.com",
       "phone": "Teléfono",
-      "phonePh": "+34 600 000 000",
-      "market": "Mercado de interés",
-      "marketAny": "Sin preferencia",
-      "marketAll": "Todos los anteriores",
-      "service": "Servicio",
-      "serviceAny": "¿Qué necesitas?",
-      "msg": "Cuéntame",
-      "msgPh": "Qué vinos tienes y a qué mercado quieres llegar…",
-      "btn": "Enviar mensaje",
-      "privacy": "Tus datos solo se usan para responderte.",
-      "ok": "✓ Recibido. Te escribo muy pronto. ¡Salud!"
+      "phonePh": "Opcional",
+      "topic": "Motivo",
+      "topicAny": "Selecciona una opción",
+      "topics": [
+        "Exportación y servicios para bodegas",
+        "Cata o evento privado",
+        "Evento de empresa",
+        "Viaje de enoturismo",
+        "Curso WSET",
+        "Otro"
+      ],
+      "msg": "Mensaje",
+      "msgPh": "¿En qué puedo ayudarte?",
+      "errors": {
+        "required": "Este campo es obligatorio.",
+        "email": "Revisa el correo: parece que falta algo.",
+        "phone": "Ese teléfono no parece válido. Incluye el prefijo si es de fuera de España.",
+        "short": "Cuéntame un poco más, con una frase me vale.",
+        "summary": "Revisa los campos marcados."
+      },
+      "btn": "Enviar",
+      "privacy": "Al enviar aceptas la política de privacidad.",
+      "ok": "Gracias, he recibido tu mensaje. Te respondo en breve."
+    }
+  },
+  "privacy": {
+    "title": "Política de<br /><em class=\"serif\">privacidad</em>",
+    "intro": "De conformidad con el Reglamento (UE) 2016/679 (RGPD), en relación con el tratamiento de tus datos personales, te informamos de lo siguiente.",
+    "controller": {
+      "title": "Responsable del tratamiento",
+      "name": "Nombre",
+      "nif": "NIF",
+      "address": "Domicilio",
+      "email": "Correo electrónico"
+    },
+    "purpose": {
+      "title": "Finalidad y legitimación",
+      "p": "Tratamos los datos que nos facilitas a través del formulario de contacto o por correo electrónico con la única finalidad de atender tu consulta y, en su caso, prestarte los servicios solicitados. La base legal es tu consentimiento y la ejecución de la relación precontractual o contractual."
+    },
+    "retention": {
+      "title": "Conservación",
+      "p": "Conservamos los datos el tiempo necesario para atender tu solicitud y, después, durante los plazos legalmente exigibles. No cedemos tus datos a terceros salvo obligación legal."
+    },
+    "rights": {
+      "title": "Tus derechos",
+      "p": "Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad escribiendo a nuestro correo electrónico. También puedes presentar una reclamación ante la Agencia Española de Protección de Datos (aepd.es) si consideras que el tratamiento no se ajusta a la normativa."
+    },
+    "minors": {
+      "title": "Menores de edad",
+      "p": "Nuestros servicios están dirigidos a personas mayores de edad. En el supuesto de que alguno de nuestros servicios vaya dirigido específicamente a menores de edad, SALP Consulting solicitará la conformidad de los padres o tutores para la recogida de los datos personales o, en su caso, para el tratamiento automatizado de los datos, según lo expuesto en la legislación vigente."
+    },
+    "moderation": {
+      "title": "Consumo responsable",
+      "p": "Apoyamos el consumo responsable de vino. Toda nuestra actividad se dirige exclusivamente a personas mayores de edad."
     }
   },
   "footer": {
-    "tag": "Vino español para el mundo · con base en el Norte"
+    "tag": "Servicios comerciales de vino desde 2011",
+    "company": "SALP Consulting S.L.U"
   }
 }

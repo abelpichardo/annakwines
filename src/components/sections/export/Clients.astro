@@ -1,0 +1,75 @@
+---
+/**
+ * Con quién trabajamos.
+ *
+ * Se publica el perfil de productor y las denominaciones representadas, no
+ * los nombres de las bodegas: parte de esa información es comercialmente
+ * sensible y nombrar clientes puede chocar con acuerdos de exclusividad.
+ */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Chip from '@components/ui/Chip.astro';
+import { denominations } from '@data/site';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section id="clients" label="Con quién trabajamos">
+  <SectionHeader
+    idx={t.export.clients.idx}
+    title={t.export.clients.title}
+    aside={t.export.clients.aside}
+  />
+
+  <div class="body">
+    <p class="lead reveal">{t.export.clients.p}</p>
+    <div class="dos reveal">
+      <span class="label">{t.export.clients.dosLabel}</span>
+      <div class="chips">
+        {denominations.map((denomination) => <Chip size="md">{denomination}</Chip>)}
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .body {
+    display: grid;
+    gap: var(--space-3xl);
+  }
+
+  .lead {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-snug);
+    color: var(--fg-body);
+    max-inline-size: 60ch;
+  }
+
+  .dos {
+    display: grid;
+    gap: var(--space-md);
+    padding-block-start: var(--space-lg);
+    border-block-start: var(--border-hair) solid var(--hair);
+  }
+
+  .label {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Flex (no grid) a propósito: las píldoras miden lo que mide su texto y
+     deben envolver en ragged-right. */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+</style>

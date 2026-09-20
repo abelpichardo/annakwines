@@ -4,13 +4,14 @@
  *   - Nav shrink + barra de progreso de scroll.
  *   - Reveals al entrar en viewport (IntersectionObserver) con stagger.
  *   - Parallax suave del retrato (elementos marcados con `data-parallax`).
- *   - Envío simulado del formulario (sin backend).
+ *   - Formulario de contacto (formateo y validación, en `./form.ts`).
  *   - Conmutador de idioma: conserva el hash actual al cambiar de idioma.
  *
  * Respeta `prefers-reduced-motion`: sin scroll suave, sin parallax y con todos
  * los reveals visibles al instante.
  */
 import Lenis from 'lenis';
+import { initContactForm } from './form';
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -117,21 +118,9 @@ function init(): void {
     );
   }
 
-  // Formulario: éxito simulado (conectar a un servicio real en producción).
-  const form = document.getElementById('contact-form');
-  if (form instanceof HTMLFormElement) {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      const ok = document.getElementById('form-ok');
-      ok?.classList.add('show');
-      form.reset();
-      window.setTimeout(() => ok?.classList.remove('show'), 6000);
-    });
-  }
+  // Formulario de contacto: formateo asistido y validación en línea.
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (form) initContactForm(form);
 
   initLangHashPreservation();
 }

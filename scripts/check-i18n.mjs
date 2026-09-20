@@ -5,14 +5,27 @@
  * tipo distinto respecto al idioma base. Se ejecuta con `npm run lint:i18n` y
  * como parte de `prebuild`.
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const dir = dirname(fileURLToPath(import.meta.url));
 const I18N_DIR = join(dir, '..', 'src', 'i18n');
-const LOCALES = ['es', 'en', 'sv'];
 const BASE = 'es';
+
+/**
+ * Los idiomas se descubren leyendo el directorio, no con una lista fija: así
+ * añadir o retirar un idioma nunca requiere tocar este script.
+ */
+const LOCALES = readdirSync(I18N_DIR)
+  .filter((f) => f.endsWith('.json'))
+  .map((f) => f.replace(/\.json$/, ''))
+  .sort((a, b) => (a === BASE ? -1 : b === BASE ? 1 : a.localeCompare(b)));
+
+if (!LOCALES.includes(BASE)) {
+  console.error(`i18n: falta el diccionario base ${BASE}.json. \u2717`);
+  process.exit(1);
+}
 
 const load = (loc) => JSON.parse(readFileSync(join(I18N_DIR, `${loc}.json`), 'utf8'));
 

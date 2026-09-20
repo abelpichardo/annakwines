@@ -1,50 +1,87 @@
 ---
 /**
- * Pie de página: wordmark + enlaces + © año (calculado en build) + tagline.
+ * Pie de página: wordmark, enlaces de página, redes, aviso de consumo
+ * responsable y datos de la sociedad.
  */
 import Brand from '@components/ui/Brand.astro';
 import Container from '@components/ui/Container.astro';
-import { footerLinks } from '@data/site';
+import SocialLinks from '@components/ui/SocialLinks.astro';
+import { footerPages, social, legal, WINE_IN_MODERATION_URL } from '@data/site';
+import { pageUrl, type PageKey } from '@i18n/routes';
 import { useTranslations } from '@i18n/utils';
 import type { Lang } from '@i18n/ui';
 
 interface Props {
   lang: Lang;
+  page: PageKey;
 }
-const { lang } = Astro.props;
+const { lang, page } = Astro.props;
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <Container class="inner">
-    <Brand href="#top" mono={false} />
-    <nav class="links" aria-label={t.nav.contact}>
-      {footerLinks.map((link) => <a href={link.href}>{t.nav[link.key]}</a>)}
-    </nav>
-    <span class="legal">© {year} · {t.footer.tag}</span>
+    <div class="top">
+      <div class="lead">
+        <Brand href={pageUrl('home', lang)} mono={false} />
+        <span class="tag">{t.footer.tag}</span>
+      </div>
+
+      <nav class="links" aria-label={t.nav.home}>
+        {
+          footerPages.map((key) => (
+            <a href={pageUrl(key, lang)} aria-current={key === page ? 'page' : undefined}>
+              {t.nav[key]}
+            </a>
+          ))
+        }
+      </nav>
+
+      <SocialLinks links={social.annak} class="social" />
+    </div>
+
+    <div class="bottom">
+      <span class="legal">© {year} {legal.company} · {t.footer.tag}</span>
+      <a class="wim" href={WINE_IN_MODERATION_URL} target="_blank" rel="noopener noreferrer">
+        {t.common.moderation}
+      </a>
+    </div>
   </Container>
 </footer>
 
 <style>
   .footer {
     border-block-start: var(--border-hair) solid var(--hair);
-    padding-block: var(--space-2xl);
+    padding-block: var(--space-3xl);
   }
 
-  /* Tres pistas que se apilan en una sola columna en móvil. */
   .footer :global(.inner) {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: var(--space-lg);
+    gap: var(--space-2xl);
+  }
+
+  .top {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: start;
+    gap: var(--space-2xl);
+  }
+
+  .lead {
+    display: grid;
+    gap: var(--space-xs);
+    align-content: start;
+  }
+
+  .tag {
+    font-size: var(--text-sm);
+    color: var(--muted);
   }
 
   .links {
     display: grid;
-    grid-auto-flow: column;
-    justify-content: center;
-    gap: var(--space-lg);
+    gap: var(--space-xs);
   }
 
   .links a {
@@ -53,23 +90,47 @@ const year = new Date().getFullYear();
     transition: color var(--dur-fast) var(--ease);
   }
 
-  .links a:hover {
+  .links a:hover,
+  .links a[aria-current='page'] {
     color: var(--fg);
   }
 
-  .legal {
-    font-size: var(--text-sm);
+  .bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-md);
+    padding-block-start: var(--space-lg);
+    border-block-start: var(--border-hair) solid var(--hair);
+  }
+
+  .legal,
+  .wim {
+    font-size: var(--text-xs);
     color: var(--faint);
   }
 
-  @media (--to-md) {
-    .footer :global(.inner) {
+  .wim {
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    transition: color var(--dur-fast) var(--ease);
+  }
+
+  .wim:hover {
+    color: var(--accent);
+  }
+
+  @media (--to-lg) {
+    .top {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+  }
+
+  @media (--to-sm) {
+    .bottom {
       grid-template-columns: 1fr;
       justify-items: start;
-      gap: var(--space-md);
-    }
-    .links {
-      justify-content: start;
     }
   }
 </style>

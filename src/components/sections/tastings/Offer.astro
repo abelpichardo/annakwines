@@ -1,0 +1,74 @@
+---
+/**
+ * Catas y formación: los cuatro formatos que no implican desplazamiento
+ * (catas, eventos a medida, talleres en casa y el curso WSET 1).
+ */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Card from '@components/ui/Card.astro';
+import Chip from '@components/ui/Chip.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section id="tastings" label="Catas y formación">
+  <SectionHeader
+    idx={t.tastings.offer.idx}
+    title={t.tastings.offer.title}
+    aside={t.tastings.offer.aside}
+  />
+
+  <div class="grid">
+    {
+      t.tastings.offer.items.map((item) => (
+        <Card as="article" interactive class="item reveal">
+          <h3>{item.title}</h3>
+          <p>{item.desc}</p>
+          <div class="tags">
+            {item.tags.map((tag) => (
+              <Chip>{tag}</Chip>
+            ))}
+          </div>
+        </Card>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+    gap: var(--space-lg);
+  }
+
+  /* `auto 1fr auto`: las etiquetas quedan al pie aunque las descripciones
+     midan distinto, sin recurrir a margin. */
+  .item {
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .item h3 {
+    font-size: var(--text-3xl);
+  }
+
+  .item p {
+    color: var(--muted);
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Flex (no grid) a propósito: las píldoras miden lo que mide su texto y
+     deben envolver en ragged-right. */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+</style>

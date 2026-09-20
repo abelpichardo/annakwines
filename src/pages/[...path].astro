@@ -1,0 +1,44 @@
+---
+/**
+ * Ruta única del sitio.
+ *
+ * Genera todas las combinaciones de página × idioma a partir del mapa de
+ * `@i18n/routes`: "/" y "/en/", "/exportacion" y "/en/export", etc. Añadir
+ * una página o un idioma no requiere crear ficheros aquí — sólo una entrada
+ * en ese mapa y su componente de página.
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Footer from '@components/layout/Footer.astro';
+import Home from '@components/pages/Home.astro';
+import Export from '@components/pages/Export.astro';
+import Tastings from '@components/pages/Tastings.astro';
+import Privacy from '@components/pages/Privacy.astro';
+import { langCodes, type Lang } from '@i18n/ui';
+import { pageKeys, pathParam, type PageKey } from '@i18n/routes';
+
+export function getStaticPaths() {
+  return langCodes.flatMap((lang) =>
+    pageKeys.map((page) => ({
+      params: { path: pathParam(page, lang) },
+      props: { page, lang },
+    }))
+  );
+}
+
+const { page, lang } = Astro.props as { page: PageKey; lang: Lang };
+
+/** Componente de contenido de cada página. */
+const views = { home: Home, export: Export, tastings: Tastings, privacy: Privacy } as const;
+const View = views[page];
+---
+
+<BaseLayout lang={lang} page={page}>
+  <Nav lang={lang} page={page} />
+  <div class="shell">
+    <main>
+      <View lang={lang} />
+    </main>
+    <Footer lang={lang} page={page} />
+  </div>
+</BaseLayout>

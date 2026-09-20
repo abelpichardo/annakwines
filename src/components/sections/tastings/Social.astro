@@ -1,0 +1,49 @@
+---
+/**
+ * Redes de Costa Blanca Wine Club.
+ *
+ * El canal principal de difusión de las catas son los grupos de Facebook,
+ * así que las cuentas tienen su propia sección en lugar de quedarse en el
+ * pie. Mientras no existan, `SocialLinks` las muestra como "en preparación".
+ */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import SocialLinks from '@components/ui/SocialLinks.astro';
+import { social } from '@data/site';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section id="social" label="Redes sociales">
+  <SectionHeader idx={t.tastings.social.idx} title={t.tastings.social.title} />
+
+  <div class="body">
+    <p class="lead reveal">{t.tastings.social.p}</p>
+    <SocialLinks
+      class="reveal"
+      links={social.tastings}
+      variant="cards"
+      pendingLabel={t.tastings.social.soon}
+    />
+  </div>
+</Section>
+
+<style>
+  .body {
+    display: grid;
+    gap: var(--space-xl);
+    max-inline-size: var(--content-width);
+  }
+
+  .lead {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-snug);
+    color: var(--fg-body);
+  }
+</style>

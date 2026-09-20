@@ -1,0 +1,52 @@
+---
+/**
+ * Las dos puertas: exportación (B2B, mundial) y catas y enoturismo (B2C,
+ * Costa Blanca).
+ *
+ * Es la pieza que resuelve el problema de tener dos negocios en un mismo
+ * sitio. Aparece inmediatamente después del hero para que cada visitante
+ * llegue a su contenido sin atravesar el del otro público.
+ */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import DoorCard from '@components/ui/DoorCard.astro';
+import { pageUrl } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+/** Cada puerta, emparejada por índice con su destino. */
+const targets = ['export', 'tastings'] as const;
+---
+
+<Section id="doors" label="Dos formas de trabajar">
+  <SectionHeader idx={t.home.doors.idx} title={t.home.doors.title} aside={t.home.doors.aside} />
+
+  <div class="grid">
+    {
+      t.home.doors.items.map((door, i) => (
+        <DoorCard
+          class="reveal"
+          href={pageUrl(targets[i]!, lang)}
+          kick={door.kick}
+          title={door.title}
+          desc={door.desc}
+          cta={door.cta}
+        />
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(28rem, 100%), 1fr));
+    gap: var(--space-lg);
+  }
+</style>

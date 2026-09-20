@@ -1,0 +1,26 @@
+---
+/**
+ * Exportación y desarrollo internacional (B2B, alcance mundial).
+ */
+import Hero from '@components/sections/export/Hero.astro';
+import Intro from '@components/sections/export/Intro.astro';
+import Services from '@components/sections/export/Services.astro';
+import Manager from '@components/sections/export/Manager.astro';
+import Clients from '@components/sections/export/Clients.astro';
+import Contact from '@components/sections/shared/Contact.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Hero lang={lang} />
+<Intro lang={lang} />
+<Services lang={lang} />
+<Manager lang={lang} />
+<Clients lang={lang} />
+<Contact lang={lang} title={t.export.cta.title} sub={t.export.cta.sub} />

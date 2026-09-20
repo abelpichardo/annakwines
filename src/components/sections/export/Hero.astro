@@ -1,0 +1,57 @@
+---
+/**
+ * Cabecera de la página de exportación. Encabeza con el público al que se
+ * dirige, para que una bodega sepa en el primer segundo que está en su sitio.
+ *
+ * Cierra con `HeroFacts`: sin él, el hero terminaba en la subtítulo y dejaba
+ * un salto brusco hasta la siguiente sección.
+ */
+import Section from '@components/ui/Section.astro';
+import HeroEyebrow from '@components/ui/HeroEyebrow.astro';
+import HeroFacts from '@components/ui/HeroFacts.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section as="header" id="top" label="Exportación">
+  <div class="copy">
+    <HeroEyebrow class="reveal" label={t.export.hero.eyebrow} />
+    <span class="line-mask">
+      <h1 class="title line-in" set:html={t.export.hero.title} />
+    </span>
+    <p class="sub reveal">{t.export.hero.sub}</p>
+    <HeroFacts class="reveal" facts={t.export.hero.facts} />
+  </div>
+</Section>
+
+<style>
+  .copy {
+    display: grid;
+    gap: var(--space-lg);
+    padding-block: var(--space-5xl) var(--space-2xl);
+  }
+
+  .title {
+    font-size: var(--text-7xl);
+    font-weight: var(--weight-medium);
+    line-height: 0.95;
+    letter-spacing: var(--tracking-tighter);
+  }
+
+  .title :global(.serif) {
+    color: var(--accent);
+  }
+
+  .sub {
+    color: var(--muted);
+    font-size: var(--text-xl);
+    max-inline-size: var(--measure);
+    line-height: var(--leading-normal);
+  }
+</style>

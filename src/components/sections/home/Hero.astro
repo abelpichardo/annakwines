@@ -1,0 +1,75 @@
+---
+/**
+ * Hero de la home. Enuncia la propuesta dual —vino español en las dos
+ * direcciones— sin decantarse por ninguno de los dos públicos: la
+ * bifurcación llega justo después, en la sección de puertas.
+ *
+ * Cierra con `HeroFacts`: un filete + hechos reales que resuelve la
+ * composición en vez de dejar la última pantalla a medias.
+ */
+import Section from '@components/ui/Section.astro';
+import HeroEyebrow from '@components/ui/HeroEyebrow.astro';
+import HeroFacts from '@components/ui/HeroFacts.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section as="header" variant="hero" id="top" label="Hero">
+  <div class="copy">
+    <HeroEyebrow class="reveal" label={t.home.hero.eyebrow} />
+    <span class="line-mask">
+      <h1 class="title line-in" set:html={t.home.hero.title} />
+    </span>
+    <p class="sub reveal">{t.home.hero.sub}</p>
+    <HeroFacts class="reveal facts" facts={t.home.hero.facts} />
+  </div>
+</Section>
+
+<style>
+  .copy {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: clamp(var(--space-lg), 3.4vw, var(--space-xl));
+    inline-size: 100%;
+  }
+
+  .eyebrow {
+    justify-content: center;
+  }
+
+  .title {
+    font-size: var(--text-8xl);
+    font-weight: var(--weight-medium);
+    line-height: 0.92;
+    letter-spacing: var(--tracking-tighter);
+  }
+
+  .title :global(.serif) {
+    display: inline-block;
+    color: var(--accent);
+  }
+
+  .sub {
+    max-inline-size: 52ch;
+    color: var(--muted);
+    font-size: clamp(var(--text-lg), 1.5vw, 1.3125rem);
+    line-height: var(--leading-normal);
+  }
+
+  .facts {
+    justify-content: center;
+  }
+
+  @media (--to-sm) {
+    .sub {
+      font-size: var(--text-xl);
+    }
+  }
+</style>

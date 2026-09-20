@@ -1,0 +1,62 @@
+---
+/**
+ * Renglón de hechos que cierra un hero: un filete y datos reales y breves
+ * ("Desde 2011", "WSET Diploma"…), nunca cifras o afirmaciones inventadas.
+ *
+ * Resuelve la sensación de vacío de los heroes sin recurrir a insignias
+ * genéricas de cifras ("+10.000 clientes") — un patrón tan gastado como el
+ * filete que llevaba `HeroEyebrow`. Sigue el mismo patrón de filete +
+ * versalitas que ya usa la fila de chips de `Judge.astro`, así que no
+ * introduce un lenguaje visual nuevo.
+ */
+interface Props {
+  facts: readonly string[];
+  class?: string;
+}
+
+const { facts, class: className } = Astro.props;
+---
+
+<ul class:list={['facts', className]}>
+  {facts.map((fact) => <li>{fact}</li>)}
+</ul>
+
+<style>
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-xl);
+    border-block-start: var(--border-hair) solid var(--hair);
+    padding-block-start: var(--space-lg);
+  }
+
+  .facts li {
+    position: relative;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-inline-start: var(--space-lg);
+  }
+
+  /* Punto separador en vez de un filete: marca cada hecho sin repetir el
+     recurso de línea que ya usa el eyebrow y el borde superior. */
+  .facts li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.55em;
+    inline-size: var(--size-dot);
+    block-size: var(--size-dot);
+    border-radius: var(--radius-circle);
+    background: var(--accent);
+  }
+
+  .facts li:first-child {
+    padding-inline-start: 0;
+  }
+
+  .facts li:first-child::before {
+    display: none;
+  }
+</style>

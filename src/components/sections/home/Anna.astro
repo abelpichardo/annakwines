@@ -1,7 +1,8 @@
 ---
 /**
- * Sobre Anna — grid 2 columnas (retrato / bio). La bio usa `gap` para el
- * ritmo vertical: ningún párrafo lleva margin.
+ * Quién está detrás — grid 2 columnas (retrato / bio). Es la sección que
+ * da credibilidad a las dos patas del negocio a la vez, así que vive en la
+ * home y no dentro de ninguna de las dos.
  */
 import Section from '@components/ui/Section.astro';
 import PortraitPlate from '@components/ui/PortraitPlate.astro';
@@ -16,25 +17,25 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<Section id="about" label="Sobre Anna">
+<Section id="anna" label="Quién está detrás">
   <div class="grid">
     <div class="photo reveal">
-      <PortraitPlate alt={t.portrait.cap} caption={t.portrait.cap} badge={t.portrait.badge} />
+      <PortraitPlate alt={t.portrait.alt} caption={t.portrait.cap} badge={t.portrait.badge} />
     </div>
 
     <div class="bio">
-      <span class="idx reveal">{t.about.idx}</span>
-      <h2 class="title reveal" set:html={t.about.title} />
-      <p class="reveal" set:html={t.about.p1} />
-      <p class="reveal">{t.about.p2}</p>
-      <blockquote class="quote reveal">{t.about.quote}</blockquote>
-      <p class="reveal">{t.about.p3}</p>
+      <span class="idx reveal">{t.home.anna.idx}</span>
+      <h2 class="title reveal" set:html={t.home.anna.title} />
+      <p class="reveal" set:html={t.home.anna.p1} />
+      <p class="reveal">{t.home.anna.p2}</p>
+      <blockquote class="quote reveal">{t.home.anna.quote}</blockquote>
+      <p class="reveal">{t.home.anna.p3}</p>
 
       <div class="sign reveal">
         <Seal shape="square" size="lg" tone="accent">AK</Seal>
         <div class="sign-text">
           <span class="nm">Anna K.</span>
-          <span class="rl">{t.about.signRole}</span>
+          <span class="rl">{t.home.anna.signRole}</span>
         </div>
       </div>
     </div>

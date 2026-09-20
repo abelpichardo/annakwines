@@ -1,0 +1,198 @@
+---
+/**
+ * Campo de formulario: etiqueta, control y hueco de error, en una pieza.
+ *
+ * Centraliza el cableado de accesibilidad que es fácil olvidar campo a campo
+ * (`aria-describedby` hacia el mensaje de error, `aria-invalid`, el vínculo
+ * label↔control) y los puntos de anclaje `data-*` que usa el script de
+ * validación. Soporta texto, email, teléfono, área de texto y desplegable.
+ *
+ * El script nunca busca clases de estilo: se engancha a `data-field`,
+ * `data-error` y `data-mask`.
+ */
+import Icon from '@components/ui/Icon.astro';
+import ChevronDown from '@lucide/astro/icons/chevron-down';
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'textarea' | 'select';
+  placeholder?: string;
+  required?: boolean;
+  autocomplete?: string;
+  /** Opciones del desplegable. */
+  options?: readonly string[];
+  /** Texto de la opción vacía inicial. */
+  emptyOption?: string;
+  /** Formateo asistido mientras se escribe. */
+  mask?: 'phone';
+  /** Muestra un contador de caracteres (sólo área de texto). */
+  counter?: boolean;
+  maxlength?: number;
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  type = 'text',
+  placeholder,
+  required = false,
+  autocomplete,
+  options,
+  emptyOption,
+  mask,
+  counter = false,
+  maxlength,
+  class: className,
+} = Astro.props;
+
+const errorId = `${id}-error`;
+const shared = {
+  id,
+  name,
+  required,
+  autocomplete,
+  placeholder,
+  'aria-describedby': errorId,
+  'data-mask': mask,
+};
+---
+
+<div class:list={['field', className]} data-field>
+  <div class="top">
+    <label for={id}>{label}</label>
+    {counter && <span class="counter" data-counter aria-hidden="true" />}
+  </div>
+
+  {
+    type === 'textarea' ? (
+      <textarea {...shared} maxlength={maxlength} />
+    ) : type === 'select' ? (
+      <div class="select-wrap">
+        <select id={id} name={name} required={required} aria-describedby={errorId}>
+          <option value="">{emptyOption}</option>
+          {options?.map((option) => (
+            <option value={option}>{option}</option>
+          ))}
+        </select>
+        <Icon icon={ChevronDown} class="arr" size={16} strokeWidth={2} />
+      </div>
+    ) : (
+      <input type={type} {...shared} maxlength={maxlength} />
+    )
+  }
+
+  <p class="error" id={errorId} data-error role="alert"></p>
+</div>
+
+<style>
+  .field {
+    display: grid;
+    align-content: start;
+    gap: var(--space-xs);
+  }
+
+  .top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: var(--space-xs);
+  }
+
+  label {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .counter {
+    font-size: var(--text-2xs);
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+    font-size: var(--text-lg);
+    color: var(--fg);
+    background: transparent;
+    border: none;
+    border-block-end: var(--border-hair) solid var(--hair);
+    padding-block: var(--space-sm);
+    padding-inline: var(--space-3xs);
+    inline-size: 100%;
+    transition: border-color var(--dur-base) var(--ease);
+  }
+
+  textarea {
+    min-block-size: 7rem;
+    resize: vertical;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--faint);
+  }
+
+  /* El teléfono se formatea en grupos: cifras tabulares evitan que el texto
+     "baile" a cada pulsación. */
+  input[data-mask='phone'] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .select-wrap {
+    position: relative;
+  }
+
+  .select-wrap select {
+    appearance: none;
+    cursor: pointer;
+    padding-inline-end: var(--space-lg);
+  }
+
+  .select-wrap :global(.arr) {
+    position: absolute;
+    inset-inline-end: var(--space-3xs);
+    inset-block-end: var(--space-sm);
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  .select-wrap select option {
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  /* Estado de error: lo marca el script con aria-invalid, no con una clase,
+     así el estilo y la accesibilidad no pueden desincronizarse. */
+  input[aria-invalid='true'],
+  textarea[aria-invalid='true'],
+  select[aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+
+  /* El hueco del mensaje no reserva espacio mientras está vacío, para que el
+     formulario no quede aireado de más sin errores. */
+  .error {
+    font-size: var(--text-xs);
+    color: var(--danger);
+    display: none;
+  }
+
+  .error:not(:empty) {
+    display: block;
+  }
+</style>

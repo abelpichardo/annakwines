@@ -1,25 +1,28 @@
 ---
 /**
- * Conmutador de idioma (ES / EN / SV) como enlaces a la misma landing en cada
- * idioma — URLs reales e indexables, mejor para SEO que un swap por JS.
+ * Conmutador de idioma. Enlaza a la MISMA página en el otro idioma, usando
+ * su slug propio (`/catas` ↔ `/en/wine-events`), no a la portada: cambiar de
+ * idioma nunca debe hacerte perder la página en la que estás.
+ *
  * El script de interacciones añade el hash actual a cada enlace para
- * conservar la sección al cambiar de idioma.
+ * conservar también la sección.
  */
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { langCodes, type Lang } from '@i18n/ui';
+import { pageUrl, type PageKey } from '@i18n/routes';
 
 interface Props {
   current: Lang;
+  page: PageKey;
 }
-const { current } = Astro.props;
+const { current, page } = Astro.props;
 ---
 
-<div class="lang" role="group" aria-label="Idioma / Language / Språk">
+<div class="lang" role="group" aria-label="Idioma / Language">
   {
     langCodes.map((lang) => (
       <a
         class:list={['lang-btn', { on: lang === current }]}
-        href={getRelativeLocaleUrl(lang, '')}
+        href={pageUrl(page, lang)}
         lang={lang}
         hreflang={lang}
         data-lang-link

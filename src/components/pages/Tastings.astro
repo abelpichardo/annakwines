@@ -1,0 +1,24 @@
+---
+/**
+ * Catas y enoturismo — Costa Blanca Wine Club (B2C, Costa Blanca).
+ */
+import Hero from '@components/sections/tastings/Hero.astro';
+import Offer from '@components/sections/tastings/Offer.astro';
+import Trips from '@components/sections/tastings/Trips.astro';
+import Social from '@components/sections/tastings/Social.astro';
+import Contact from '@components/sections/shared/Contact.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Hero lang={lang} />
+<Offer lang={lang} />
+<Trips lang={lang} />
+<Social lang={lang} />
+<Contact lang={lang} title={t.tastings.cta.title} sub={t.tastings.cta.sub} />

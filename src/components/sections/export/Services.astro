@@ -1,8 +1,9 @@
 ---
 /**
- * Servicios — lista de 4 filas numeradas (i–iv en serif). Cada fila: nº ·
- * título · descripción + chips. Los numerales viven en `serviceMeta` (datos de
- * presentación) y se emparejan por índice con `services.items` (copy traducida).
+ * Servicios de exportación — lista de filas numeradas (i–v en serif). Cada
+ * fila: nº · título · descripción + etiquetas. Los numerales viven en
+ * `serviceMeta` (datos de presentación) y se emparejan por índice con
+ * `export.services.items` (copy traducida).
  */
 import Section from '@components/ui/Section.astro';
 import SectionHeader from '@components/ui/SectionHeader.astro';
@@ -18,12 +19,16 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<Section id="services" label="Servicios">
-  <SectionHeader idx={t.services.idx} title={t.services.title} aside={t.services.aside} />
+<Section id="services" label="Servicios de exportación">
+  <SectionHeader
+    idx={t.export.services.idx}
+    title={t.export.services.title}
+    aside={t.export.services.aside}
+  />
 
   <div class="list">
     {
-      t.services.items.map((item, i) => (
+      t.export.services.items.map((item, i) => (
         <article class="row reveal">
           <span class="num" aria-hidden="true">
             {serviceMeta[i]?.num}

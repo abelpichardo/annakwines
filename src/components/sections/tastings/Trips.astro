@@ -1,0 +1,89 @@
+---
+/**
+ * Visitas y viajes de vino: los formatos con desplazamiento, de un día y de
+ * varios. Se presentan como filas grandes porque son el producto de mayor
+ * valor de esta pata.
+ */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section id="trips" label="Visitas y viajes" theme="dark">
+  <SectionHeader
+    idx={t.tastings.trips.idx}
+    title={t.tastings.trips.title}
+    aside={t.tastings.trips.aside}
+  />
+
+  <div class="list">
+    {
+      t.tastings.trips.items.map((trip) => (
+        <article class="trip reveal">
+          <span class="kick">{trip.kick}</span>
+          <h3>{trip.title}</h3>
+          <p>{trip.desc}</p>
+        </article>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .list {
+    display: grid;
+    border-block-start: var(--border-hair) solid var(--hair);
+  }
+
+  .trip {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    grid-template-areas:
+      'kick title'
+      'kick desc';
+    gap: var(--space-sm) var(--space-2xl);
+    align-items: start;
+    padding-block: var(--space-3xl);
+    border-block-end: var(--border-hair) solid var(--hair);
+  }
+
+  .kick {
+    grid-area: kick;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .trip h3 {
+    grid-area: title;
+    font-size: var(--text-5xl);
+  }
+
+  .trip p {
+    grid-area: desc;
+    color: var(--muted);
+    font-size: var(--text-xl);
+    line-height: var(--leading-relaxed);
+    max-inline-size: var(--measure);
+  }
+
+  @media (--to-md) {
+    .trip {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'kick'
+        'title'
+        'desc';
+      gap: var(--space-sm);
+      padding-block: var(--space-xl);
+    }
+  }
+</style>

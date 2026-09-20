@@ -1,7 +1,13 @@
 # Anna K Wines
 
-Landing estática multiidioma (español · inglés · sueco) de Anna K Wines,
-consultora e importadora de vinos españoles en el norte de Europa.
+Sitio estático bilingüe (español · inglés) de Anna K Wines —
+_The Spanish Wine Connection_.
+
+Cubre las dos actividades de la empresa: **exportación** y desarrollo
+comercial internacional para bodegas españolas (B2B, alcance mundial), y
+**catas y enoturismo** bajo la marca _Costa Blanca Wine Club_ (B2C, Costa
+Blanca). Cada una tiene su propia página; la home presenta a Anna Granqvist
+y bifurca hacia ambas.
 
 Construida con [Astro](https://astro.build). Sin framework de UI ni runtime
 de cliente más allá de un script de interacciones: el sitio se sirve como
@@ -30,23 +36,30 @@ npm run dev        # http://localhost:4321
 | `npm run format`    | Prettier sobre todo el proyecto                          |
 
 `prebuild` ejecuta `lint:i18n` y `check`, así que un build que pasa garantiza
-que los tres idiomas tienen las mismas claves y que no hay errores de tipos.
+que ambos idiomas tienen las mismas claves y que no hay errores de tipos.
 
 ## Estructura
 
 ```text
 src/
-├─ pages/[...lang]/index.astro   Ruta dinámica: genera /, /en/, /sv/
-├─ layouts/BaseLayout.astro      <head>, SEO, hreflang, fuentes
-├─ components/{ui,layout,sections}/
+├─ pages/[...path].astro         Ruta única: genera las 8 páginas
+├─ layouts/BaseLayout.astro      <head>, SEO por página, hreflang, fuentes
+├─ components/{ui,layout,pages,sections}/
 ├─ styles/{tokens,breakpoints,global}.css
-├─ i18n/                         Diccionarios y helpers tipados
-├─ data/site.ts                  Datos no lingüísticos
+├─ i18n/                         Rutas, diccionarios y helpers tipados
+├─ data/site.ts                  Redes, denominaciones, datos legales
 └─ scripts/interactions.ts       Comportamiento de cliente
 ```
 
-Una sola ruta dinámica genera los tres idiomas: añadir uno nuevo no requiere
-crear páginas, sólo su diccionario y una entrada en `i18n/ui.ts`.
+Las páginas tienen slug propio en cada idioma y las genera todas una sola
+ruta catch-all a partir del mapa de `src/i18n/routes.ts`:
+
+| Página             | Español         | Inglés             |
+| :----------------- | :-------------- | :----------------- |
+| Home               | `/`             | `/en/`             |
+| Exportación        | `/exportacion/` | `/en/export/`      |
+| Catas y enoturismo | `/catas/`       | `/en/wine-events/` |
+| Privacidad         | `/privacidad/`  | `/en/privacy/`     |
 
 ## Convenciones
 
@@ -60,8 +73,12 @@ del catálogo de componentes reutilizables.
 
 - El formulario de contacto **no tiene backend ni protección anti-bot**: el
   envío se simula en cliente.
+- **`legal.address` está vacío a propósito** en `src/data/site.ts`. La LSSI
+  obliga a publicar el domicilio del prestador; hay que decidir cuál antes
+  de publicar. La página legal omite la línea mientras esté vacío.
+- Las cuentas de _Costa Blanca Wine Club_ aún no existen: están marcadas con
+  `pending: true` y se muestran como "en preparación".
+- Confirmar la adhesión a **Wine in Moderation** antes de usar su logotipo.
 - Faltan las cabeceras de seguridad y la CSP (dependen del hosting).
-- Las acreditaciones, testimonios, logos de bodega y los datos de contacto
-  de `src/data/site.ts` son placeholders.
 - `astro.config.mjs` fija el dominio de producción, usado para el sitemap,
   las URLs canónicas y los `hreflang`.

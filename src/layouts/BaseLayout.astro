@@ -1,9 +1,12 @@
 ---
 /**
- * Layout base: <html lang>, <head> con SEO/meta traducidos, `hreflang`
- * alternativos por idioma, Open Graph/Twitter, fuentes locales (fontsource),
+ * Layout base: <html lang>, <head> con SEO/meta traducidos por página,
+ * `hreflang` alternativos, Open Graph/Twitter, fuentes locales (fontsource),
  * tokens + estilos globales, textura de grano, barra de progreso y el script
- * de interacciones de cliente. El contenido de la página entra por el <slot />.
+ * de interacciones. El contenido entra por el <slot />.
+ *
+ * Los títulos, descripciones y URLs alternativas se derivan de la página
+ * activa, de modo que cada una tiene su propio SEO sin configurarlo a mano.
  */
 import '@fontsource-variable/schibsted-grotesk/index.css';
 import '@fontsource/instrument-serif/400.css';
@@ -11,28 +14,33 @@ import '@fontsource/instrument-serif/400-italic.css';
 import '@styles/tokens.css';
 import '@styles/global.css';
 
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { langCodes, localeTags, defaultLang, type Lang } from '@i18n/ui';
+import { pageUrl, type PageKey } from '@i18n/routes';
 import { useTranslations } from '@i18n/utils';
 import { SITE_NAME } from '@data/site';
 
 interface Props {
   lang: Lang;
+  page: PageKey;
   title?: string;
   description?: string;
 }
-const { lang } = Astro.props;
+
+const { lang, page } = Astro.props;
 const t = useTranslations(lang);
-const title = Astro.props.title ?? t.meta.title;
-const description = Astro.props.description ?? t.meta.description;
+const meta = t.meta[page];
+const title = Astro.props.title ?? meta.title;
+const description = Astro.props.description ?? meta.description;
 
 const site = Astro.site ?? new URL('http://localhost:4321');
 const canonical = new URL(Astro.url.pathname, site).href;
+
+/** La misma página en cada idioma, para los `hreflang`. */
 const alternates = langCodes.map((code) => ({
   hreflang: localeTags[code],
-  href: new URL(getRelativeLocaleUrl(code, ''), site).href,
+  href: new URL(pageUrl(page, code), site).href,
 }));
-const xDefault = new URL(getRelativeLocaleUrl(defaultLang, ''), site).href;
+const xDefault = new URL(pageUrl(page, defaultLang), site).href;
 ---
 
 <!doctype html>

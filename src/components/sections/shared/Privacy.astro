@@ -1,0 +1,183 @@
+---
+/**
+ * Contenido de la política de privacidad (RGPD + LSSI).
+ *
+ * Los datos del responsable vienen de `@data/site`. La línea del domicilio
+ * se omite mientras `legal.address` esté vacío: ver la nota en ese fichero
+ * sobre por qué está pendiente de decidir.
+ */
+import Section from '@components/ui/Section.astro';
+import { legal, WINE_IN_MODERATION_URL } from '@data/site';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = t.privacy;
+
+/** Sólo se listan los campos con valor, para no dejar filas huérfanas. */
+const controllerRows = [
+  { label: p.controller.name, value: legal.company },
+  { label: p.controller.nif, value: legal.nif },
+  { label: p.controller.address, value: legal.address },
+  { label: p.controller.email, value: legal.email },
+].filter((row) => row.value);
+
+const blocks = [p.purpose, p.retention, p.rights, p.minors, p.moderation];
+---
+
+<Section as="header" id="top" label="Política de privacidad">
+  <div class="head">
+    <h1 class="title" set:html={p.title} />
+    <p class="intro">{p.intro}</p>
+  </div>
+</Section>
+
+<Section id="detail" label="Detalle" variant="tail">
+  <div class="body">
+    <section class="block">
+      <h2>{p.controller.title}</h2>
+      <dl class="rows">
+        {
+          controllerRows.map((row) => (
+            <div class="row">
+              <dt>{row.label}</dt>
+              <dd>{row.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    {
+      blocks.map((block) => (
+        <section class="block">
+          <h2>{block.title}</h2>
+          <p>{block.p}</p>
+        </section>
+      ))
+    }
+
+    <a class="wim" href={WINE_IN_MODERATION_URL} target="_blank" rel="noopener noreferrer">
+      <span class="wim-mark" aria-hidden="true">✳</span>
+      <span class="wim-text">
+        <span class="wim-name">{t.common.moderation}</span>
+        <span class="wim-note">{t.common.moderationNote}</span>
+      </span>
+    </a>
+  </div>
+</Section>
+
+<style>
+  .head {
+    display: grid;
+    gap: var(--space-lg);
+    max-inline-size: var(--content-width);
+    padding-block-start: var(--space-5xl);
+  }
+
+  .title {
+    font-size: var(--text-7xl);
+    font-weight: var(--weight-medium);
+    line-height: 0.95;
+    letter-spacing: var(--tracking-tighter);
+  }
+
+  .title :global(.serif) {
+    color: var(--accent);
+  }
+
+  .intro {
+    color: var(--muted);
+    font-size: var(--text-xl);
+    line-height: var(--leading-relaxed);
+  }
+
+  .body {
+    display: grid;
+    gap: var(--space-3xl);
+    max-inline-size: var(--content-width);
+  }
+
+  .block {
+    display: grid;
+    gap: var(--space-sm);
+    padding-block-start: var(--space-lg);
+    border-block-start: var(--border-hair) solid var(--hair);
+  }
+
+  .block h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .block p {
+    color: var(--fg-body);
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+  }
+
+  .rows {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: var(--space-md);
+    font-size: var(--text-lg);
+  }
+
+  .row dt {
+    color: var(--muted);
+  }
+
+  .row dd {
+    color: var(--fg-body);
+  }
+
+  .wim {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    border: var(--border-hair) solid var(--hair);
+    transition: border-color var(--dur-base) var(--ease);
+  }
+
+  .wim:hover {
+    border-color: color-mix(in oklab, var(--accent) 45%, var(--hair));
+  }
+
+  .wim-mark {
+    font-size: var(--text-4xl);
+    color: var(--accent);
+    line-height: var(--leading-none);
+  }
+
+  .wim-text {
+    display: grid;
+    gap: var(--space-3xs);
+  }
+
+  .wim-name {
+    font-weight: var(--weight-medium);
+    font-size: var(--text-xl);
+  }
+
+  .wim-note {
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  @media (--to-sm) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: var(--space-3xs);
+    }
+  }
+</style>

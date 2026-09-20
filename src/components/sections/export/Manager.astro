@@ -1,0 +1,85 @@
+---
+/**
+ * Export manager externo: el servicio central de esta pata. Se explica
+ * aparte de la lista de servicios porque es el encargo completo, no una
+ * prestación suelta.
+ */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Section id="manager" label="Export manager externo" theme="dark">
+  <SectionHeader idx={t.export.manager.idx} title={t.export.manager.title} />
+
+  <div class="grid">
+    <div class="copy">
+      <p class="lead reveal">{t.export.manager.p1}</p>
+      <p class="reveal">{t.export.manager.p2}</p>
+    </div>
+    <div class="reach reveal">
+      <span class="label">{t.export.manager.reachLabel}</span>
+      <p>{t.export.manager.reach}</p>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(var(--space-xl), 5vw, var(--space-5xl));
+    align-items: start;
+  }
+
+  .copy {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .lead {
+    font-size: var(--text-4xl);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .copy p:not(.lead) {
+    color: var(--muted);
+    font-size: var(--text-xl);
+    line-height: var(--leading-relaxed);
+    max-inline-size: var(--measure);
+  }
+
+  .reach {
+    display: grid;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    border: var(--border-hair) solid var(--hair);
+  }
+
+  .label {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .reach p {
+    font-size: var(--text-xl);
+    line-height: var(--leading-normal);
+  }
+
+  @media (--to-lg) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+  }
+</style>

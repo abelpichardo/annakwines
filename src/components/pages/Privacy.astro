@@ -1,0 +1,15 @@
+---
+/**
+ * Página legal. Sin formulario de contacto: no tiene sentido pedir datos en
+ * la página que explica cómo se tratan.
+ */
+import PrivacyContent from '@components/sections/shared/Privacy.astro';
+import type { Lang } from '@i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<PrivacyContent lang={lang} />

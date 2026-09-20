@@ -1,0 +1,95 @@
+---
+/**
+ * "Puerta": tarjeta grande y enlazable que dirige a cada una de las dos
+ * patas del negocio. Es el mecanismo que hace convivir dos públicos muy
+ * distintos en la misma home sin que ninguno tenga que leer lo del otro.
+ *
+ * Toda la tarjeta es el enlace, no sólo el texto de la llamada a la acción.
+ */
+interface Props {
+  href: string;
+  kick: string;
+  title: string;
+  desc: string;
+  cta: string;
+  class?: string;
+}
+
+const { href, kick, title, desc, cta, class: className } = Astro.props;
+---
+
+<a class:list={['door', className]} href={href}>
+  <span class="kick">{kick}</span>
+  <span class="title">{title}</span>
+  <span class="desc">{desc}</span>
+  <span class="cta">
+    {cta}
+    <span class="arr" aria-hidden="true">→</span>
+  </span>
+</a>
+
+<style>
+  /* `1fr` en la fila de la descripción empuja el CTA al pie de la tarjeta,
+     de modo que las dos puertas alinean su llamada a la acción aunque los
+     textos midan distinto. */
+  .door {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: var(--space-md);
+    padding: clamp(var(--space-lg), 3.2vw, var(--space-2xl));
+    border: var(--border-hair) solid var(--hair);
+    background: var(--bg);
+    transition:
+      background var(--dur-slow) var(--ease),
+      border-color var(--dur-slow) var(--ease);
+  }
+
+  .kick {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .title {
+    font-family: var(--font-d);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-4xl);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .desc {
+    color: var(--muted);
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
+    max-inline-size: 42ch;
+  }
+
+  .cta {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--text-md);
+    font-weight: var(--weight-medium);
+    color: var(--accent);
+    padding-block-start: var(--space-xs);
+  }
+
+  .arr {
+    transition: transform var(--dur-base) var(--ease);
+  }
+
+  @media (--hover-capable) {
+    .door:hover {
+      background: var(--panel);
+      border-color: color-mix(in oklab, var(--accent) 45%, var(--hair));
+    }
+    .door:hover .arr {
+      transform: translateX(var(--space-2xs));
+    }
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+/**
+ * Etiqueta de cabecera de un hero: texto en versalitas + una segunda línea
+ * opcional en serif itálica ("by Anna K Wines", por ejemplo, cuando la
+ * página presenta una submarca).
+ *
+ * Sustituye al antiguo `Kicker` (versalitas + una línea corta delante).
+ * Ese filete se quita a propósito: es un adorno genérico de maquetación
+ * asistida por IA que no aporta nada — el peso visual lo da la tipografía,
+ * no una rayita. Un solo componente para las tres cabeceras de hero
+ * garantiza que las tres compartan exactamente el mismo tratamiento.
+ */
+interface Props {
+  /** Texto principal en versalitas. */
+  label: string;
+  /** Segunda línea opcional, en serif itálica (atribución de submarca). */
+  secondary?: string;
+  class?: string;
+}
+
+const { label, secondary, class: className } = Astro.props;
+---
+
+<div class:list={['eyebrow', className]}>
+  <span class="label">{label}</span>
+  {secondary && <span class="secondary">{secondary}</span>}
+</div>
+
+<style>
+  .eyebrow {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: baseline;
+    gap: var(--space-sm);
+  }
+
+  .label {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .secondary {
+    font-family: var(--font-s);
+    font-style: italic;
+    font-size: var(--text-md);
+    color: var(--muted);
+  }
+
+  @media (--to-sm) {
+    .eyebrow {
+      grid-auto-flow: row;
+      justify-items: start;
+      gap: var(--space-3xs);
+    }
+  }
+</style>

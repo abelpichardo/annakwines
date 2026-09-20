@@ -1,68 +1,131 @@
 /**
- * Datos NO lingüísticos del sitio: constantes de presentación (numerales,
- * sellos, banderas, iniciales) y configuración de contacto. Se emparejan por
- * índice con los arrays traducidos de los diccionarios (`services.items`,
- * `certs.items`, `markets.items`, `testimonials.items`).
- *
- * Toda la copy traducible vive en `src/i18n/*.json`; aquí solo hay valores
- * independientes del idioma. Los datos de contacto son PLACEHOLDERS: sustituir
- * por los reales antes de publicar.
+ * Datos NO lingüísticos del sitio: identidad, redes, denominaciones,
+ * constantes de presentación y datos legales. Toda la copy traducible vive
+ * en `src/i18n/*.json`; aquí sólo hay valores independientes del idioma.
  */
-import type { Dictionary } from '@i18n/ui';
+import type { PageKey } from '@i18n/routes';
 
 export const SITE_NAME = 'Anna K Wines';
+export const TAGLINE = 'The Spanish Wine Connection';
 
-type NavKey = keyof Dictionary['nav'];
+/** Marca de la pata de catas y enoturismo (B2C, Costa Blanca). */
+export const TASTINGS_BRAND = 'Costa Blanca Wine Club';
 
-/** Enlaces del nav central (ancla + clave de traducción). */
-export const navLinks: readonly { key: NavKey; href: string }[] = [
-  { key: 'about', href: '#about' },
-  { key: 'work', href: '#bridge' },
-  { key: 'services', href: '#services' },
-  { key: 'certs', href: '#certs' },
-  { key: 'markets', href: '#markets' },
-];
+/** Enlaces del menú principal, por clave de página. Incluye 'home' para
+ * poder volver al inicio desde cualquier página sin depender sólo del logo. */
+export const navPages: readonly PageKey[] = ['home', 'export', 'tastings'];
 
-/** Enlaces del footer. */
-export const footerLinks: readonly { key: NavKey; href: string }[] = [
-  { key: 'about', href: '#about' },
-  { key: 'services', href: '#services' },
-  { key: 'contact', href: '#contact' },
-];
+/** Enlaces del pie. */
+export const footerPages: readonly PageKey[] = ['export', 'tastings', 'privacy'];
 
-/** Numeral (serif) de cada servicio, emparejado con `services.items`. */
-export const serviceMeta = [{ num: 'i' }, { num: 'ii' }, { num: 'iii' }, { num: 'iv' }] as const;
-
-/** Inicial del sello de cada acreditación, emparejada con `certs.items`. */
-export const certMeta = [
-  { seal: 'W' },
-  { seal: 'W' },
-  { seal: 'S' },
-  { seal: 'E' },
-  { seal: 'J' },
-  { seal: 'C' },
-] as const;
-
-/** Bandera, código y si es mercado principal, emparejado con `markets.items`. */
-export const marketMeta = [
-  { code: 'pl', flag: '🇵🇱', main: true },
-  { code: 'de', flag: '🇩🇪', main: true },
-  { code: 'fi', flag: '🇫🇮', main: true },
-  { code: 'se', flag: '🇸🇪', main: false },
-  { code: 'no', flag: '🇳🇴', main: false },
-  { code: 'dk', flag: '🇩🇰', main: false },
-] as const;
-
-/** Inicial del avatar de cada testimonio, emparejada con `testimonials.items`. */
-export const testimonialMeta = [{ avatar: 'B' }, { avatar: 'N' }] as const;
-
-/** Logos placeholder de bodegas (nombres propios, no se traducen). */
-export const wineryLogos = ['Bodega Uno', 'Viña Dos', 'Pago Tres', 'Cava Cuatro'] as const;
-
-/** Métodos de contacto directos. PLACEHOLDERS — sustituir por los reales. */
 export const contact = {
   email: 'hola@annakwines.com',
-  whatsapp: { display: 'WhatsApp', href: 'https://wa.me/34600000000' },
-  instagram: { display: '@annakwines', href: 'https://instagram.com/annakwines' },
-  linkedin: { display: 'LinkedIn', href: 'https://www.linkedin.com/' },
+} as const;
+
+/** Forma de un enlace social. Declarada, no inferida de una de las listas. */
+export interface SocialLink {
+  network: 'facebook' | 'instagram' | 'linkedin';
+  handle: string;
+  /** Vacío mientras la cuenta no exista. */
+  href: string;
+  /** `true` = cuenta aún no creada: se muestra, pero no enlaza. */
+  pending: boolean;
+}
+
+/**
+ * Redes sociales, agrupadas por marca.
+ *
+ * `annak` son las cuentas existentes de Anna Granqvist. `tastings` son las
+ * de Costa Blanca Wine Club: aún no existen, así que se marcan con
+ * `pending: true` y se muestran como "cuenta en preparación" en lugar de
+ * enlazar a un 404. En cuanto existan, basta con poner la URL y quitar el flag.
+ */
+export const social: Record<'annak' | 'tastings', readonly SocialLink[]> = {
+  annak: [
+    {
+      network: 'instagram',
+      handle: '@annakwines',
+      href: 'https://instagram.com/annakwines',
+      pending: false,
+    },
+    {
+      network: 'facebook',
+      handle: '@annakwines',
+      href: 'https://facebook.com/annakwines',
+      pending: false,
+    },
+    {
+      network: 'linkedin',
+      handle: 'Anna Granqvist',
+      href: 'https://www.linkedin.com/',
+      pending: true,
+    },
+  ],
+  tastings: [
+    {
+      network: 'facebook',
+      handle: '@costablancawineclub',
+      href: '',
+      pending: true,
+    },
+    {
+      network: 'instagram',
+      handle: '@costablancawineclub',
+      href: '',
+      pending: true,
+    },
+  ],
+};
+
+/** Inicial del sello de cada acreditación, emparejada con `home.certs.items`. */
+export const certMeta = [
+  { seal: 'D' },
+  { seal: 'W' },
+  { seal: 'J' },
+  { seal: 'M' },
+  { seal: 'C' },
+  { seal: 'A' },
+] as const;
+
+/** Numeral (serif) de cada servicio de exportación. */
+export const serviceMeta = [
+  { num: 'i' },
+  { num: 'ii' },
+  { num: 'iii' },
+  { num: 'iv' },
+  { num: 'v' },
+] as const;
+
+/**
+ * Denominaciones de origen representadas. Se publican las zonas y el perfil
+ * de productor, no los nombres de las bodegas: parte de la información es
+ * comercialmente sensible y nombrar clientes puede chocar con acuerdos de
+ * exclusividad.
+ */
+export const denominations = [
+  'DO Campo de Borja',
+  'DO Valdeorras',
+  'DO Bierzo',
+  'DO Toro',
+  'DO Rueda',
+  'Cebreros',
+] as const;
+
+/** Enlace oficial del programa de consumo responsable. */
+export const WINE_IN_MODERATION_URL = 'https://wineinmoderation.eu/es';
+
+/**
+ * Datos del responsable del tratamiento (RGPD + LSSI art. 10).
+ *
+ * `address` está deliberadamente vacío: el domicilio social coincide con el
+ * domicilio particular de la fundadora. La LSSI obliga a publicar el
+ * domicilio del prestador, así que antes de publicar hay que decidir entre
+ * trasladar el domicilio social (gestoría o coworking) o aceptar publicar
+ * el actual. La página legal omite la línea mientras esté vacío.
+ */
+export const legal = {
+  company: 'SALP Consulting S.L.U',
+  nif: 'B85934917',
+  address: '',
+  email: contact.email,
 } as const;
