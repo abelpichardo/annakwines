@@ -1,8 +1,14 @@
 ---
 /**
- * Juez de vinos — sección en tema oscuro (fondo tinta) para crear contraste.
+ * Juez de vinos — sección en tema oscuro para crear contraste.
  * 3 estadísticas grandes + fila de chips. Cifras y textos son de EJEMPLO.
+ *
+ * No declara ni un color: `theme="dark"` invierte los tokens semánticos y
+ * tanto esta sección como los componentes que contiene los heredan.
  */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Chip from '@components/ui/Chip.astro';
 import { useTranslations } from '@i18n/utils';
 import type { Lang } from '@i18n/ui';
 
@@ -13,106 +19,79 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section class="judge" id="judge" data-screen-label="Juez de vinos">
-  <div class="wrap">
-    <div class="head-row">
-      <div class="head-lead">
-        <span class="sec-idx reveal">{t.judge.idx}</span>
-        <h2 class="sec-title reveal" set:html={t.judge.title} />
-      </div>
-      <p class="sec-aside reveal">{t.judge.aside}</p>
+<Section id="judge" label="Juez de vinos" theme="dark">
+  <SectionHeader idx={t.judge.idx} title={t.judge.title} aside={t.judge.aside} />
+
+  <div class="body">
+    <div class="stats">
+      {
+        t.judge.stats.map((stat) => (
+          <div class="stat reveal">
+            <span class="n">{stat.n}</span>
+            <span class="k">{stat.k}</span>
+          </div>
+        ))
+      }
     </div>
 
-    <div class="judge-body">
-      <div class="judge-stats">
-        {
-          t.judge.stats.map((stat) => (
-            <div class="stat reveal">
-              <div class="n">{stat.n}</div>
-              <div class="k">{stat.k}</div>
-            </div>
-          ))
-        }
-      </div>
-      <ul class="judge-chips reveal">
-        {t.judge.chips.map((chip) => <li>{chip}</li>)}
-      </ul>
-    </div>
+    <ul class="chips reveal">
+      {
+        t.judge.chips.map((chip) => (
+          <Chip as="li" size="md">
+            {chip}
+          </Chip>
+        ))
+      }
+    </ul>
   </div>
-</section>
+</Section>
 
 <style>
-  .judge {
-    background: var(--ink);
-    color: var(--bone);
-    padding-block: clamp(90px, 12vw, 150px);
-  }
-  .judge :global(.sec-title) {
-    color: var(--bone);
-  }
-  .judge :global(.sec-idx) {
-    color: oklch(0.78 0.1 30);
-  }
-  .judge :global(.sec-aside) {
-    color: oklch(0.945 0.016 80 / 0.66);
+  .body {
+    display: grid;
+    gap: var(--space-5xl);
   }
 
-  .judge-body {
+  /* Intrínseca: tres columnas mientras quepan, una cuando no. */
+  .stats {
     display: grid;
-    gap: 56px;
+    grid-template-columns: repeat(auto-fit, minmax(var(--col-min), 1fr));
+    gap: var(--space-2xl);
   }
-  .judge-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-  }
+
   .stat {
     display: grid;
-    gap: 12px;
+    gap: var(--space-sm);
     align-content: start;
   }
+
   .stat .n {
-    font-size: clamp(46px, 6vw, 84px);
-    font-weight: 500;
-    letter-spacing: -0.04em;
-    line-height: 1;
-  }
-  .stat .k {
-    color: oklch(0.945 0.016 80 / 0.6);
-    font-size: 14px;
-    max-width: 22ch;
-    line-height: 1.45;
+    font-size: clamp(2.875rem, 6vw, 5.25rem);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-tighter);
+    line-height: var(--leading-none);
   }
 
-  .judge-chips {
+  .stat .k {
+    color: var(--faint);
+    font-size: var(--text-base);
+    max-inline-size: 22ch;
+    line-height: var(--leading-snug);
+  }
+
+  /* Flex (no grid) a propósito: las píldoras miden lo que mide su texto y
+     deben envolver en ragged-right. Grid las forzaría a una pista común. */
+  .chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    list-style: none;
-    border-block-start: 1px solid oklch(0.945 0.016 80 / 0.16);
-    padding-block-start: 36px;
-  }
-  .judge-chips li {
-    font-size: 14px;
-    color: oklch(0.945 0.016 80 / 0.8);
-    border: 1px solid oklch(0.945 0.016 80 / 0.2);
-    border-radius: 100px;
-    padding-block: 8px;
-    padding-inline: 16px;
+    gap: var(--space-sm);
+    border-block-start: var(--border-hair) solid var(--hair-2);
+    padding-block-start: var(--space-xl);
   }
 
-  @media (max-width: 720px) {
-    .judge-stats {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-  }
-  @media (max-width: 620px) {
-    .judge {
-      padding-block: 72px;
-    }
-    .judge-body {
-      gap: 40px;
+  @media (--to-sm) {
+    .body {
+      gap: var(--space-2xl);
     }
   }
 </style>

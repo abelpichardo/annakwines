@@ -1,0 +1,29 @@
+/* ============================================================
+   Breakpoints — Anna K Wines
+   Única fuente de verdad de los puntos de corte del sitio.
+
+   Las media queries no aceptan `var()`, así que los breakpoints se
+   declaran como `@custom-media` y PostCSS los resuelve en build
+   (`postcss-custom-media` + `@csstools/postcss-global-data`, ver
+   `postcss.config.mjs`). Este fichero se inyecta en TODOS los bloques
+   `<style>` de los `.astro`, por lo que nunca debe importarse a mano
+   ni contener reglas que generen CSS.
+
+   Escala (mobile-last, coherente con el resto del sistema):
+     to-xs  380px  · ajustes finos en móviles estrechos
+     to-sm  620px  · móvil
+     to-md  780px  · tablet vertical
+     to-lg  980px  · tablet apaisada / portátil pequeño
+
+   Las rejillas de tarjetas NO usan breakpoints: se resuelven con
+   `repeat(auto-fit, minmax(...))` (layout intrínseco).
+   ============================================================ */
+
+@custom-media --to-xs (max-width: 380px);
+@custom-media --to-sm (max-width: 620px);
+@custom-media --to-md (max-width: 780px);
+@custom-media --to-lg (max-width: 980px);
+
+/* Preferencias del usuario, también tokenizadas. */
+@custom-media --motion-reduce (prefers-reduced-motion: reduce);
+@custom-media --hover-capable (hover: hover) and (pointer: fine);

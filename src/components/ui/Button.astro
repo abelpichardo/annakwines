@@ -3,8 +3,6 @@
  * Botón / enlace en forma de píldora.
  *   - variant "solid"   → relleno vino (CTA del formulario).
  *   - variant "outline" → borde, hover invierte (CTA del nav).
- *   - size "sm" | "md".
- *   - block → ancho completo.
  * Renderiza <a> si se pasa `href`, si no <button>.
  */
 interface Props {
@@ -12,6 +10,7 @@ interface Props {
   type?: 'button' | 'submit';
   variant?: 'solid' | 'outline';
   size?: 'sm' | 'md';
+  /** Ocupa todo el ancho disponible. */
   block?: boolean;
   class?: string;
 }
@@ -25,11 +24,14 @@ const {
   class: className,
 } = Astro.props;
 
-const classes = ['btn', variant, size, block && 'block', className];
 const Tag = href ? 'a' : 'button';
 ---
 
-<Tag class:list={classes} href={href} type={href ? undefined : type}>
+<Tag
+  class:list={['btn', variant, size, { block }, className]}
+  href={href}
+  type={href ? undefined : type}
+>
   <slot />
 </Tag>
 
@@ -38,45 +40,57 @@ const Tag = href ? 'a' : 'button';
     display: inline-grid;
     place-items: center;
     font-family: var(--font-d);
-    font-weight: 500;
-    border-radius: 100px;
-    transition: all 0.3s var(--ease);
+    font-weight: var(--weight-medium);
+    border-radius: var(--radius-pill);
     text-align: center;
+    transition:
+      transform var(--dur-base) var(--ease),
+      background var(--dur-base) var(--ease),
+      color var(--dur-base) var(--ease),
+      box-shadow var(--dur-base) var(--ease);
   }
+
   .btn.md {
-    font-size: 15px;
-    padding-block: 15px;
-    padding-inline: 34px;
+    font-size: var(--text-md);
+    padding-block: var(--space-md);
+    padding-inline: var(--space-xl);
   }
+
   .btn.sm {
-    font-size: 13px;
-    padding-block: 8px;
-    padding-inline: 16px;
+    font-size: var(--text-sm);
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-md);
   }
+
   .btn.block {
-    width: 100%;
+    inline-size: 100%;
   }
 
   .btn.solid {
-    background: var(--wine);
+    background: var(--accent);
     color: var(--bone);
-  }
-  .btn.solid:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 30px -16px var(--wine);
   }
 
   .btn.outline {
-    border: 1px solid var(--fg);
-  }
-  .btn.outline:hover {
-    background: var(--fg);
-    color: var(--bg);
+    border: var(--border-hair) solid var(--fg);
   }
 
-  @media (max-width: 620px) {
+  /* El hover sólo se aplica donde hay puntero real: en táctil deja
+     estados "pegados" tras el toque. */
+  @media (--hover-capable) {
+    .btn.solid:hover {
+      transform: translateY(calc(var(--space-3xs) * -1));
+      box-shadow: var(--shadow-btn);
+    }
+    .btn.outline:hover {
+      background: var(--fg);
+      color: var(--bg);
+    }
+  }
+
+  @media (--to-sm) {
     .btn.md {
-      width: 100%;
+      inline-size: 100%;
     }
   }
 </style>

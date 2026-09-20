@@ -1,0 +1,83 @@
+---
+/**
+ * Sello con inicial: recuadro o círculo con una letra en serif itálica.
+ *
+ * Unifica cuatro piezas que antes se estilaban por separado — el monograma
+ * de la marca, la firma de la bio, el sello de cada acreditación y el avatar
+ * de cada testimonio — porque todas son la misma forma con distinto tamaño,
+ * trazo y relleno.
+ */
+interface Props {
+  /** `square` para monogramas, `circle` para sellos y avatares. */
+  shape?: 'square' | 'circle';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Color del trazo y del texto. */
+  tone?: 'accent' | 'fg';
+  /** Rellena el fondo con el panel sutil (avatares). */
+  filled?: boolean;
+  class?: string;
+}
+
+const {
+  shape = 'square',
+  size = 'md',
+  tone = 'accent',
+  filled = false,
+  class: className,
+} = Astro.props;
+---
+
+<span class:list={['seal', shape, size, tone, { filled }, className]} aria-hidden="true">
+  <slot />
+</span>
+
+<style>
+  .seal {
+    display: inline-grid;
+    place-items: center;
+    font-family: var(--font-s);
+    font-style: italic;
+    line-height: var(--leading-none);
+    border: var(--border-hair) solid currentColor;
+    flex-shrink: 0;
+  }
+
+  .seal.circle {
+    border-radius: var(--radius-circle);
+  }
+
+  /* Tamaños: el recuadro es cuadrado, así que basta con fijar el inline-size. */
+  .seal.sm {
+    inline-size: var(--size-seal-sm);
+    block-size: var(--size-seal-sm);
+    font-size: var(--text-md);
+  }
+  .seal.md {
+    inline-size: var(--size-seal);
+    block-size: var(--size-seal);
+    font-size: var(--text-xl);
+  }
+  .seal.lg {
+    inline-size: var(--size-seal-md);
+    block-size: var(--size-seal-md);
+    font-size: var(--text-xl);
+  }
+  .seal.xl {
+    inline-size: var(--size-seal-lg);
+    block-size: var(--size-seal-lg);
+    font-size: var(--text-lg);
+  }
+
+  .seal.accent {
+    color: var(--accent);
+  }
+  .seal.fg {
+    color: var(--fg);
+  }
+
+  .seal.filled {
+    background: var(--panel);
+    border-color: var(--hair);
+    color: var(--accent);
+  }
+</style>

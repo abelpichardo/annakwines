@@ -3,6 +3,7 @@
  * Pie de página: wordmark + enlaces + © año (calculado en build) + tagline.
  */
 import Brand from '@components/ui/Brand.astro';
+import Container from '@components/ui/Container.astro';
 import { footerLinks } from '@data/site';
 import { useTranslations } from '@i18n/utils';
 import type { Lang } from '@i18n/ui';
@@ -16,48 +17,59 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
-  <div class="wrap footer-inner">
+  <Container class="inner">
     <Brand href="#top" mono={false} />
-    <nav class="footer-links" aria-label={t.nav.contact}>
+    <nav class="links" aria-label={t.nav.contact}>
       {footerLinks.map((link) => <a href={link.href}>{t.nav[link.key]}</a>)}
     </nav>
-    <span class="muted">© {year} · {t.footer.tag}</span>
-  </div>
+    <span class="legal">© {year} · {t.footer.tag}</span>
+  </Container>
 </footer>
 
 <style>
   .footer {
-    border-block-start: 1px solid var(--hair);
-    padding-block: 40px;
+    border-block-start: var(--border-hair) solid var(--hair);
+    padding-block: var(--space-2xl);
   }
-  .footer-inner {
-    display: flex;
+
+  /* Tres pistas que se apilan en una sola columna en móvil. */
+  .footer :global(.inner) {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
+    gap: var(--space-lg);
   }
-  .footer-links {
-    display: flex;
-    gap: 24px;
+
+  .links {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: var(--space-lg);
   }
-  .footer-links a {
-    font-size: 13.5px;
+
+  .links a {
+    font-size: var(--text-sm);
     color: var(--muted);
-    transition: color 0.25s;
+    transition: color var(--dur-fast) var(--ease);
   }
-  .footer-links a:hover {
+
+  .links a:hover {
     color: var(--fg);
   }
-  .muted {
-    font-size: 13px;
+
+  .legal {
+    font-size: var(--text-sm);
     color: var(--faint);
   }
-  @media (max-width: 620px) {
-    .footer-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 18px;
+
+  @media (--to-md) {
+    .footer :global(.inner) {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      gap: var(--space-md);
+    }
+    .links {
+      justify-content: start;
     }
   }
 </style>

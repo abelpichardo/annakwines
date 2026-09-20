@@ -1,0 +1,50 @@
+---
+/**
+ * Superficie delimitada: borde fino, padding fluido y, opcionalmente, fondo
+ * de panel y sombra de elevación. La usan los testimonios y el formulario.
+ *
+ * Los atributos no reconocidos se reenvían al elemento raíz (`id`, `novalidate`,
+ * `aria-*`…), de modo que el componente sirve para cualquier etiqueta sin
+ * tener que declarar una prop por atributo.
+ */
+interface Props {
+  /** `flat` borde simple; `raised` añade fondo de panel y sombra. */
+  variant?: 'flat' | 'raised';
+  /** Resalta el borde en vino al pasar el ratón. */
+  interactive?: boolean;
+  as?: 'div' | 'figure' | 'article' | 'form';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = 'flat',
+  interactive = false,
+  as: Tag = 'div',
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Tag class:list={['card', variant, { interactive }, className]} {...rest}><slot /></Tag>
+
+<style>
+  .card {
+    display: grid;
+    align-content: start;
+    gap: var(--space-lg);
+    border: var(--border-hair) solid var(--hair);
+    padding: clamp(var(--space-lg), 3.4vw, var(--space-2xl));
+    transition: border-color var(--dur-slow) var(--ease);
+  }
+
+  .card.raised {
+    background: var(--panel);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card.interactive:hover {
+    border-color: color-mix(in oklab, var(--accent) 40%, var(--hair));
+  }
+</style>

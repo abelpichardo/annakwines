@@ -1,0 +1,76 @@
+---
+/**
+ * Sección de página: ritmo vertical, anclaje y tema, en una sola pieza.
+ *
+ * Absorbe el patrón que antes se repetía en cada sección
+ * (`<section class="block"><div class="wrap">…`) y añade el tema invertido:
+ * `theme="dark"` marca `data-theme="dark"`, que redefine los tokens
+ * semánticos (ver `tokens.css`). Por eso el contenido interior no necesita
+ * saber sobre qué fondo vive — hereda los colores correctos.
+ */
+import Container from '@components/ui/Container.astro';
+
+interface Props {
+  /** Ancla para la navegación (`#about`, `#contact`…). */
+  id?: string;
+  /** Etiqueta legible de la sección, usada por herramientas de captura. */
+  label?: string;
+  /** `dark` invierte la superficie a fondo tinta. */
+  theme?: 'default' | 'dark';
+  /** `hero` ocupa alto de pantalla; `tail` reduce el padding inferior. */
+  variant?: 'default' | 'hero' | 'tail';
+  as?: 'section' | 'header';
+  class?: string;
+}
+
+const {
+  id,
+  label,
+  theme = 'default',
+  variant = 'default',
+  as: Tag = 'section',
+  class: className,
+} = Astro.props;
+---
+
+<Tag
+  class:list={['section', variant, className]}
+  id={id}
+  data-screen-label={label}
+  data-theme={theme === 'dark' ? 'dark' : undefined}
+>
+  <Container><slot /></Container>
+</Tag>
+
+<style>
+  .section {
+    position: relative;
+    padding-block: var(--section-pad);
+  }
+
+  /* El tema oscuro pinta su propia superficie con los tokens ya invertidos. */
+  .section[data-theme='dark'] {
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  /* Hero: centrado a pantalla completa, sin depender de alturas fijas. */
+  .section.hero {
+    display: grid;
+    place-items: center;
+    min-block-size: 100svh;
+    padding-block: var(--space-6xl) var(--space-2xl);
+  }
+
+  /* Última sección antes del pie: menos aire abajo. */
+  .section.tail {
+    padding-block-end: var(--space-6xl);
+  }
+
+  @media (--to-sm) {
+    .section.hero {
+      min-block-size: auto;
+      padding-block: var(--space-6xl) var(--space-4xl);
+    }
+  }
+</style>

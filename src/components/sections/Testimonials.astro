@@ -1,9 +1,14 @@
 ---
 /**
- * Bodegas / Testimonios — head-row + grid 2 columnas de citas (serif) con
- * avatar de inicial, y una fila de "logos" (píldoras de texto) como
- * placeholders de bodegas. Contenido de EJEMPLO.
+ * Bodegas / Testimonios — cabecera + rejilla de citas (serif) con avatar de
+ * inicial, y una fila de "logos" (píldoras) como placeholders de bodegas.
+ * Contenido de EJEMPLO.
  */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Card from '@components/ui/Card.astro';
+import Seal from '@components/ui/Seal.astro';
+import Chip from '@components/ui/Chip.astro';
 import { testimonialMeta, wineryLogos } from '@data/site';
 import { useTranslations } from '@i18n/utils';
 import type { Lang } from '@i18n/ui';
@@ -15,126 +20,100 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section class="block" id="testi" data-screen-label="Testimonios">
-  <div class="wrap">
-    <div class="head-row">
-      <div class="head-lead">
-        <span class="sec-idx reveal">{t.testimonials.idx}</span>
-        <h2 class="sec-title reveal" set:html={t.testimonials.title} />
-      </div>
-      <p class="sec-aside reveal">{t.testimonials.aside}</p>
+<Section id="testi" label="Testimonios">
+  <SectionHeader
+    idx={t.testimonials.idx}
+    title={t.testimonials.title}
+    aside={t.testimonials.aside}
+  />
+
+  <div class="body">
+    <div class="grid">
+      {
+        t.testimonials.items.map((item, i) => (
+          <Card as="figure" interactive class="testi reveal">
+            <blockquote class="q">{item.quote}</blockquote>
+            <figcaption class="by">
+              <Seal shape="circle" size="xl" filled>
+                {testimonialMeta[i]?.avatar}
+              </Seal>
+              <span class="who">
+                <span class="nm">{item.name}</span>
+                <span class="meta">{item.meta}</span>
+              </span>
+            </figcaption>
+          </Card>
+        ))
+      }
     </div>
 
-    <div class="testi-body">
-      <div class="testi-grid">
-        {
-          t.testimonials.items.map((item, i) => (
-            <figure class="testi reveal">
-              <blockquote class="q">{item.quote}</blockquote>
-              <figcaption class="by">
-                <span class="av serif" aria-hidden="true">
-                  {testimonialMeta[i]?.avatar}
-                </span>
-                <span>
-                  <span class="nm">{item.name}</span>
-                  <span class="meta">{item.meta}</span>
-                </span>
-              </figcaption>
-            </figure>
-          ))
-        }
-      </div>
-
-      <div class="logos reveal">
-        <span class="lbl">{t.testimonials.logosLabel}</span>
-        {wineryLogos.map((logo) => <span class="lg">{logo}</span>)}
-      </div>
+    <div class="logos reveal">
+      <span class="lbl">{t.testimonials.logosLabel}</span>
+      {wineryLogos.map((logo) => <Chip variant="serif">{logo}</Chip>)}
     </div>
   </div>
-</section>
+</Section>
 
 <style>
-  .testi-body {
+  .body {
     display: grid;
-    gap: 54px;
+    gap: var(--space-3xl);
   }
-  .testi-grid {
+
+  .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(var(--col-min), 1fr));
+    gap: var(--space-lg);
   }
+
+  /* `1fr auto` empuja la firma al fondo de la tarjeta sin `margin-top: auto`,
+     de modo que todas las citas alinean su pie aunque midan distinto. */
   .testi {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    border: 1px solid var(--hair);
-    padding: 36px;
-    transition: border-color 0.4s var(--ease);
+    grid-template-rows: 1fr auto;
   }
-  .testi:hover {
-    border-color: color-mix(in oklab, var(--wine) 40%, var(--hair));
-  }
-  .testi .q {
+
+  .q {
     font-family: var(--font-s);
     font-style: italic;
-    font-size: clamp(20px, 2.2vw, 27px);
-    line-height: 1.35;
+    font-size: var(--text-3xl);
+    line-height: var(--leading-snug);
   }
-  .testi .by {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-block-start: auto;
-  }
-  .testi .av {
+
+  .by {
     display: grid;
-    place-items: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: var(--panel);
-    border: 1px solid var(--hair);
-    color: var(--wine);
-    flex-shrink: 0;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: center;
+    gap: var(--space-md);
   }
-  .testi .nm {
-    display: block;
-    font-weight: 600;
-    font-size: 15px;
+
+  .who {
+    display: grid;
   }
-  .testi .meta {
-    display: block;
-    font-size: 13px;
+
+  .nm {
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-md);
+  }
+
+  .meta {
+    font-size: var(--text-sm);
     color: var(--muted);
   }
 
+  /* Flex (no grid) a propósito: las píldoras miden lo que mide su texto y
+     deben envolver en ragged-right. Grid las forzaría a una pista común. */
   .logos {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 14px;
-  }
-  .logos .lbl {
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--faint);
-    margin-inline-end: 8px;
-  }
-  .logos .lg {
-    font-family: var(--font-s);
-    font-style: italic;
-    font-size: 17px;
-    color: var(--faint);
-    border: 1px solid var(--hair);
-    border-radius: 100px;
-    padding-block: 10px;
-    padding-inline: 20px;
+    gap: var(--space-md);
   }
 
-  @media (max-width: 720px) {
-    .testi-grid {
-      grid-template-columns: 1fr;
-    }
+  .lbl {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--faint);
   }
 </style>

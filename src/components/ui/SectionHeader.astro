@@ -1,0 +1,81 @@
+---
+/**
+ * Cabecera de sección: índice + título y, opcionalmente, un texto lateral.
+ *
+ * `title` y `aside` llegan de los diccionarios i18n y pueden contener
+ * marcado (`<em class="serif">`), por eso se inyectan con `set:html`.
+ * El ritmo vertical es `gap` puro: ningún hijo lleva margin.
+ */
+interface Props {
+  /** Numeral de sección ("01", "02"…). */
+  idx?: string;
+  /** Título, admite marcado inline de los diccionarios. */
+  title: string;
+  /** Texto de apoyo a la derecha (o debajo, en pantallas estrechas). */
+  aside?: string;
+  class?: string;
+}
+
+const { idx, title, aside, class: className } = Astro.props;
+---
+
+<div class:list={['head', { solo: !aside }, className]}>
+  <div class="lead">
+    {idx && <span class="idx reveal">{idx}</span>}
+    <h2 class="title reveal" set:html={title} />
+  </div>
+  {aside && <p class="aside reveal" set:html={aside} />}
+</div>
+
+<style>
+  .head {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    gap: var(--space-2xl);
+    align-items: end;
+    padding-block-end: var(--space-5xl);
+  }
+
+  /* Sin texto lateral el título ocupa todo el ancho. */
+  .head.solo {
+    grid-template-columns: 1fr;
+  }
+
+  .lead {
+    display: grid;
+    gap: var(--space-md);
+    align-content: start;
+  }
+
+  .idx {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .title {
+    font-size: var(--text-6xl);
+  }
+
+  .aside {
+    color: var(--muted);
+    font-size: var(--text-xl);
+    max-inline-size: var(--measure-aside);
+    line-height: var(--leading-normal);
+  }
+
+  @media (--to-lg) {
+    .head {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+
+  @media (--to-sm) {
+    .head {
+      padding-block-end: var(--space-3xl);
+    }
+  }
+</style>

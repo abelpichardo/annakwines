@@ -1,9 +1,9 @@
 ---
 /**
  * Conmutador de idioma (ES / EN / SV) como enlaces a la misma landing en cada
- * idioma (URLs reales e indexables, mejor para SEO que un swap por JS).
- * Usa `getRelativeLocaleUrl` de `astro:i18n`. El script de interacciones añade
- * el hash actual a cada enlace para conservar la sección al cambiar de idioma.
+ * idioma — URLs reales e indexables, mejor para SEO que un swap por JS.
+ * El script de interacciones añade el hash actual a cada enlace para
+ * conservar la sección al cambiar de idioma.
  */
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { langCodes, type Lang } from '@i18n/ui';
@@ -33,33 +33,32 @@ const { current } = Astro.props;
 
 <style>
   .lang {
-    display: inline-flex;
+    display: inline-grid;
+    grid-auto-flow: column;
     align-items: center;
-    gap: 2px;
-    border: 1px solid var(--hair);
-    border-radius: 100px;
-    padding: 3px;
+    gap: var(--space-3xs);
+    border: var(--border-hair) solid var(--hair);
+    border-radius: var(--radius-pill);
+    padding: var(--space-3xs);
   }
+
   .lang-btn {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    padding-block: 5px;
-    padding-inline: 9px;
-    border-radius: 100px;
+    font-size: var(--text-2xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    padding-block: var(--space-2xs);
+    padding-inline: var(--space-xs);
+    border-radius: var(--radius-pill);
     color: var(--faint);
-    transition: color 0.25s;
+    transition: color var(--dur-fast) var(--ease);
   }
+
   .lang-btn:hover {
     color: var(--fg);
   }
+
   .lang-btn.on {
-    background: var(--wine);
+    background: var(--accent);
     color: var(--bone);
-  }
-  @media (max-width: 620px) {
-    .lang-btn {
-      padding-inline: 7px;
-    }
   }
 </style>

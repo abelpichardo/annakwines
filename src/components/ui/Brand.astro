@@ -1,9 +1,13 @@
 ---
 /**
  * Wordmark "Anna K Wines" ("Wines" en serif itálica color vino).
- * `mono` muestra el recuadro "AK" (nav); en el footer se usa sin recuadro.
- * Estilos en `.brand` (global.css) para compartirlos entre nav y footer.
+ * `mono` muestra el monograma "AK" (nav); en el pie se usa sin él.
+ *
+ * Los estilos viven aquí, no en `global.css`: la marca es un componente
+ * autónomo y nav y footer la comparten importándola, no copiando clases.
  */
+import Seal from '@components/ui/Seal.astro';
+
 interface Props {
   href?: string;
   mono?: boolean;
@@ -14,6 +18,46 @@ const { href = '#top', mono = true, class: className } = Astro.props;
 ---
 
 <a class:list={['brand', className]} href={href} aria-label="Anna K Wines">
-  {mono && <span class="mono" aria-hidden="true">AK</span>}
-  <span class="wm">Anna K <em>Wines</em></span>
+  {
+    mono && (
+      <Seal shape="square" size="md" tone="fg">
+        AK
+      </Seal>
+    )
+  }
+  <span class="wm">Anna K <em class="serif">Wines</em></span>
 </a>
+
+<style>
+  .brand {
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: baseline;
+    gap: var(--space-sm);
+  }
+
+  .wm {
+    font-family: var(--font-d);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-xl);
+    letter-spacing: var(--tracking-tighter);
+  }
+
+  .wm em {
+    font-weight: var(--weight-normal);
+    color: var(--accent);
+  }
+
+  @media (--to-sm) {
+    .wm {
+      font-size: var(--text-lg);
+    }
+  }
+
+  /* En pantallas muy estrechas el wordmark se reduce a "Anna K". */
+  @media (--to-xs) {
+    .wm em {
+      display: none;
+    }
+  }
+</style>

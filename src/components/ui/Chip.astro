@@ -1,0 +1,67 @@
+---
+/**
+ * Píldora de texto. Sustituye a las cuatro variantes de chip que existían
+ * sueltas por sección (etiquetas de servicio, "mercado principal", chips de
+ * acreditaciones y logos de bodega).
+ */
+interface Props {
+  /**
+   * `outline` — etiqueta neutra (por defecto).
+   * `accent`  — destaca en color vino.
+   * `serif`   — nombre propio en serif itálica (logos de bodega).
+   */
+  variant?: 'outline' | 'accent' | 'serif';
+  size?: 'sm' | 'md';
+  /** Renderiza como `<li>` cuando vive dentro de una lista. */
+  as?: 'span' | 'li';
+  class?: string;
+}
+
+const { variant = 'outline', size = 'sm', as: Tag = 'span', class: className } = Astro.props;
+---
+
+<Tag class:list={['chip', variant, size, className]}><slot /></Tag>
+
+<style>
+  .chip {
+    display: inline-grid;
+    place-items: center;
+    border: var(--border-hair) solid var(--hair);
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+
+  .chip.sm {
+    font-size: var(--text-2xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    padding-block: var(--space-2xs);
+    padding-inline: var(--space-sm);
+  }
+
+  .chip.md {
+    font-size: var(--text-base);
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-md);
+  }
+
+  .chip.outline {
+    color: var(--faint);
+  }
+
+  .chip.accent {
+    color: var(--accent);
+    border-color: color-mix(in oklab, var(--accent) 40%, transparent);
+  }
+
+  .chip.serif {
+    font-family: var(--font-s);
+    font-style: italic;
+    font-size: var(--text-xl);
+    text-transform: none;
+    letter-spacing: var(--tracking-normal);
+    color: var(--faint);
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-lg);
+  }
+</style>

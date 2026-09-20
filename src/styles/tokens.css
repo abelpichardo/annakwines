@@ -1,65 +1,157 @@
 /* ============================================================
    Design tokens — Anna K Wines
    Hueso cálido · Tinto profundo · editorial minimalista
-   Paleta en oklch + un hex de acento (--wine).
+
+   Arquitectura en tres capas:
+     1. PRIMITIVOS  — valores crudos (paleta, escalas). No usar en componentes.
+     2. SEMÁNTICOS  — intención de uso (--bg, --fg, --hair). Es lo que se usa.
+     3. DE TEMA     — redefinen los semánticos en superficies invertidas.
+
+   Regla del proyecto: ningún componente escribe un px, un color o una
+   duración literal. Si falta un valor, se añade aquí primero.
+   Los breakpoints viven en `breakpoints.css` (ver ese fichero).
    ============================================================ */
 
 :root {
-  /* Paleta base */
+  /* ========== 1. PRIMITIVOS ========== */
+
+  /* Paleta */
   --bone: oklch(0.945 0.016 80);
   --bone-2: oklch(0.905 0.02 78);
   --paper: oklch(0.985 0.006 85); /* "plato" blanco del retrato */
   --ink: oklch(0.215 0.012 40);
   --ink-2: oklch(0.285 0.012 40);
   --wine: #6e1023; /* acento principal */
+  --wine-soft: oklch(0.78 0.1 30); /* vino legible sobre fondo tinta */
+  --green: oklch(0.62 0.13 150);
 
-  /* Tokens semánticos (tema hueso) */
+  /* Escala de espaciado (base 4px). Único origen de gaps y paddings. */
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+  --space-5xl: 80px;
+  --space-6xl: 96px;
+
+  /* Escala tipográfica. En rem: respeta el tamaño de fuente del navegador. */
+  --text-2xs: 0.6875rem; /* 11px — caption vertical, microetiquetas */
+  --text-xs: 0.75rem; /* 12px — kickers, labels en versalitas */
+  --text-sm: 0.8125rem; /* 13px — metadatos, enlaces de pie */
+  --text-base: 0.875rem; /* 14px — texto de interfaz */
+  --text-md: 0.9375rem; /* 15px — cuerpo compacto */
+  --text-lg: 1rem; /* 16px — cuerpo */
+  --text-xl: 1.0625rem; /* 17px — cuerpo destacado */
+  --text-2xl: 1.1875rem; /* 19px — títulos de tarjeta */
+  --text-3xl: clamp(1.3125rem, 2.4vw, 1.875rem); /* 21 → 30 */
+  --text-4xl: clamp(1.5rem, 2.6vw, 2.125rem); /* 24 → 34 */
+  --text-5xl: clamp(1.625rem, 3.4vw, 2.875rem); /* 26 → 46 */
+  --text-6xl: clamp(2.125rem, 5vw, 4.25rem); /* 34 → 68 — títulos de sección */
+  --text-7xl: clamp(2.5rem, 7vw, 6.25rem); /* 40 → 100 — cabecera de contacto */
+  --text-8xl: clamp(3rem, 8.2vw, 7.75rem); /* 48 → 124 — hero */
+
+  /* Métricas tipográficas */
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+  --tracking-tighter: -0.04em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.14em;
+  --tracking-widest: 0.24em;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* Familias */
+  --font-d: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-s: 'Instrument Serif', Georgia, serif;
+
+  /* Tamaños de elementos discretos (sellos, anillos, puntos, iconos) */
+  --size-dot: 8px;
+  --size-icon: 22px;
+  --size-seal-sm: 26px;
+  --size-seal: 30px;
+  --size-seal-md: 34px;
+  --size-seal-lg: 42px;
+  --size-ring: 96px;
+  /* Ancho del retrato: fluido, sin breakpoints. */
+  --portrait-w: clamp(300px, 34vw, 420px);
+
+  /* Trazos y radios */
+  --border-hair: 1px;
+  --radius-sm: 6px;
+  --radius-pill: 100px;
+  --radius-circle: 50%;
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.25s;
+  --dur-base: 0.3s;
+  --dur-slow: 0.4s;
+  --dur-slower: 0.9s;
+  --dur-reveal: 1.05s;
+
+  /* Capas (z-index). Nombrarlas evita la guerra de números mágicos. */
+  --z-grain: 1;
+  --z-shell: 3;
+  --z-nav: 80;
+  --z-progress: 90;
+
+  /* ========== 2. SEMÁNTICOS (tema hueso, por defecto) ========== */
+
   --bg: var(--bone);
   --fg: var(--ink);
+  --fg-body: var(--ink-2); /* párrafos largos: un punto más suave que --fg */
+  --accent: var(--wine);
   --muted: oklch(0.46 0.012 40);
   --faint: oklch(0.6 0.01 40);
   --hair: oklch(0.215 0.012 40 / 0.16);
   --hair-2: oklch(0.215 0.012 40 / 0.08);
   --panel: oklch(0.215 0.012 40 / 0.035);
-  --green: oklch(0.62 0.13 150);
 
-  /* Escala de espaciado (4 · 8 · 12 · 16 · 24 · 32 · 48 · 64) */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 24px;
-  --space-6: 32px;
-  --space-7: 48px;
-  --space-8: 64px;
+  /* Sombras */
+  --shadow-card: 0 40px 80px -60px rgba(40, 20, 15, 0.55);
+  --shadow-plate: 0 40px 90px -50px rgba(40, 20, 15, 0.5), 0 2px 0 rgba(255, 255, 255, 0.6) inset;
+  --shadow-btn: 0 16px 30px -16px var(--accent);
 
-  /* Layout */
+  /* ========== 3. LAYOUT ========== */
+
   --maxw: 1320px;
-  --pad: 56px;
   --content-width: 760px;
+  --measure: 52ch; /* ancho de lectura de párrafos */
+  --measure-narrow: 30ch;
+  --measure-aside: 42ch;
+  --col-min: 280px; /* mínimo de columna en rejillas auto-fit */
 
-  /* Tipografía */
-  --font-d: 'Schibsted Grotesk Variable', 'Schibsted Grotesk', system-ui, sans-serif;
-  --font-s: 'Instrument Serif', Georgia, serif;
+  /* Padding lateral fluido: un solo valor, sin media queries. */
+  --pad: clamp(1rem, 4.4vw, 3.5rem);
 
-  /* Movimiento */
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  /* Ritmo vertical de sección */
+  --section-pad: clamp(4.5rem, 12vw, 10rem);
 }
 
-/* Padding lateral fluido por breakpoint (token responsivo). */
-@media (max-width: 980px) {
-  :root {
-    --pad: 30px;
-  }
-}
-@media (max-width: 620px) {
-  :root {
-    --pad: 22px;
-  }
-}
-@media (max-width: 380px) {
-  :root {
-    --pad: 16px;
-  }
+/* ========== TEMA INVERTIDO ==========
+   Superficies sobre fondo tinta (sección "Juez de vinos"). Redefine sólo los
+   tokens semánticos, de modo que cualquier componente colocado dentro hereda
+   los colores correctos sin conocer el tema ni duplicar reglas. */
+[data-theme='dark'] {
+  --bg: var(--ink);
+  --fg: var(--bone);
+  --fg-body: oklch(0.945 0.016 80 / 0.8);
+  --accent: var(--wine-soft);
+  --muted: oklch(0.945 0.016 80 / 0.66);
+  --faint: oklch(0.945 0.016 80 / 0.6);
+  --hair: oklch(0.945 0.016 80 / 0.2);
+  --hair-2: oklch(0.945 0.016 80 / 0.16);
+  --panel: oklch(0.945 0.016 80 / 0.06);
 }

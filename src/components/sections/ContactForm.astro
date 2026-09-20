@@ -2,9 +2,12 @@
 /**
  * Formulario de contacto — pieza protagonista, en tarjeta elevada.
  * Campos: Nombre+Bodega, Email+Teléfono, Mercado+Servicio (selects), Mensaje.
- * El envío lo intercepta el script de interacciones (muestra `.form-ok` y
- * resetea). NO hay backend: conectar a Resend/Formspree/endpoint propio.
+ *
+ * El envío lo intercepta el script de interacciones (muestra `.ok` y resetea).
+ * PENDIENTE: no hay backend ni protección anti-bot — conectar a un endpoint
+ * real y añadir verificación en servidor antes de publicar.
  */
+import Card from '@components/ui/Card.astro';
 import Button from '@components/ui/Button.astro';
 import Icon from '@components/ui/Icon.astro';
 import ChevronDown from '@lucide/astro/icons/chevron-down';
@@ -22,35 +25,55 @@ const f = t.contact.form;
 const serviceCodes = ['export', 'rep', 'consult', 'tasting'] as const;
 ---
 
-<form class="contact-form reveal" id="contact-form" novalidate>
-  <div class="cf-head">
+<Card as="form" variant="raised" class="form reveal" id="contact-form" novalidate>
+  <div class="head">
     <h3>{f.heading}</h3>
     <p>{f.sub}</p>
   </div>
 
-  <div class="cf-row">
+  <div class="row">
     <div class="field">
       <label for="cf-name">{f.name}</label>
-      <input id="cf-name" type="text" name="name" placeholder={f.namePh} required />
+      <input
+        id="cf-name"
+        type="text"
+        name="name"
+        autocomplete="name"
+        placeholder={f.namePh}
+        required
+      />
     </div>
     <div class="field">
       <label for="cf-winery">{f.winery}</label>
-      <input id="cf-winery" type="text" name="winery" placeholder={f.wineryPh} />
+      <input
+        id="cf-winery"
+        type="text"
+        name="winery"
+        autocomplete="organization"
+        placeholder={f.wineryPh}
+      />
     </div>
   </div>
 
-  <div class="cf-row">
+  <div class="row">
     <div class="field">
       <label for="cf-email">{f.email}</label>
-      <input id="cf-email" type="email" name="email" placeholder={f.emailPh} required />
+      <input
+        id="cf-email"
+        type="email"
+        name="email"
+        autocomplete="email"
+        placeholder={f.emailPh}
+        required
+      />
     </div>
     <div class="field">
       <label for="cf-phone">{f.phone}</label>
-      <input id="cf-phone" type="tel" name="phone" placeholder={f.phonePh} />
+      <input id="cf-phone" type="tel" name="phone" autocomplete="tel" placeholder={f.phonePh} />
     </div>
   </div>
 
-  <div class="cf-row">
+  <div class="row">
     <div class="field">
       <label for="cf-market">{f.market}</label>
       <div class="select-wrap">
@@ -63,7 +86,7 @@ const serviceCodes = ['export', 'rep', 'consult', 'tasting'] as const;
           }
           <option value="all">{f.marketAll}</option>
         </select>
-        <Icon icon={ChevronDown} class="sel-arr" size={16} strokeWidth={2} />
+        <Icon icon={ChevronDown} class="arr" size={16} strokeWidth={2} />
       </div>
     </div>
     <div class="field">
@@ -77,7 +100,7 @@ const serviceCodes = ['export', 'rep', 'consult', 'tasting'] as const;
             ))
           }
         </select>
-        <Icon icon={ChevronDown} class="sel-arr" size={16} strokeWidth={2} />
+        <Icon icon={ChevronDown} class="arr" size={16} strokeWidth={2} />
       </div>
     </div>
   </div>
@@ -87,78 +110,76 @@ const serviceCodes = ['export', 'rep', 'consult', 'tasting'] as const;
     <textarea id="cf-message" name="message" placeholder={f.msgPh} required></textarea>
   </div>
 
-  <div class="cf-foot">
+  <div class="foot">
     <Button type="submit" variant="solid">{f.btn}</Button>
-    <span class="cf-priv">{f.privacy}</span>
+    <span class="priv">{f.privacy}</span>
   </div>
 
-  <p class="form-ok" id="form-ok" role="status" aria-live="polite">{f.ok}</p>
-</form>
+  <p class="ok" id="form-ok" role="status" aria-live="polite">{f.ok}</p>
+</Card>
 
 <style>
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    padding: clamp(28px, 3.4vw, 46px);
-    background: var(--panel);
-    border: 1px solid var(--hair);
-    border-radius: 6px;
-    box-shadow: 0 40px 80px -60px rgba(40, 20, 15, 0.55);
-  }
-  .cf-head {
+  .head {
     display: grid;
-    gap: 8px;
+    gap: var(--space-xs);
   }
-  .cf-head h3 {
-    font-size: clamp(22px, 2.4vw, 30px);
+
+  .head h3 {
+    font-size: var(--text-3xl);
     letter-spacing: -0.02em;
   }
-  .cf-head p {
-    font-size: 15px;
+
+  .head p {
+    font-size: var(--text-md);
     color: var(--muted);
   }
 
-  .cf-row {
+  .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 22px;
+    gap: var(--space-lg);
   }
+
   .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    align-content: start;
+    gap: var(--space-xs);
   }
+
   .field label {
-    font-size: 12px;
-    letter-spacing: 0.14em;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wider);
     text-transform: uppercase;
     color: var(--muted);
   }
+
   .field input,
   .field textarea,
   .field select {
     font-family: inherit;
-    font-size: 16px;
+    font-size: var(--text-lg);
     color: var(--fg);
     background: transparent;
     border: none;
-    border-block-end: 1px solid var(--hair);
-    padding-block: 11px;
-    padding-inline: 2px;
-    transition: border-color 0.3s;
-    width: 100%;
+    border-block-end: var(--border-hair) solid var(--hair);
+    padding-block: var(--space-sm);
+    padding-inline: var(--space-3xs);
+    inline-size: 100%;
+    transition: border-color var(--dur-base) var(--ease);
   }
+
   .field textarea {
-    min-height: 110px;
+    min-block-size: 7rem;
     resize: vertical;
   }
+
   .field input:focus,
   .field textarea:focus,
   .field select:focus {
     outline: none;
-    border-color: var(--wine);
+    border-color: var(--accent);
   }
+
   .field input::placeholder,
   .field textarea::placeholder {
     color: var(--faint);
@@ -167,52 +188,55 @@ const serviceCodes = ['export', 'rep', 'consult', 'tasting'] as const;
   .select-wrap {
     position: relative;
   }
+
   .select-wrap select {
     appearance: none;
     cursor: pointer;
-    padding-inline-end: 24px;
+    padding-inline-end: var(--space-lg);
   }
-  .select-wrap select:required:invalid {
-    color: var(--faint);
-  }
-  .select-wrap :global(.sel-arr) {
+
+  .select-wrap :global(.arr) {
     position: absolute;
-    inset-inline-end: 2px;
-    inset-block-end: 12px;
+    inset-inline-end: var(--space-3xs);
+    inset-block-end: var(--space-sm);
     color: var(--muted);
     pointer-events: none;
   }
+
   .select-wrap select option {
     background: var(--bg);
     color: var(--fg);
   }
 
-  .cf-foot {
+  /* Flex (no grid) a propósito: el botón y la nota legal deben poder
+     envolver conservando cada uno su ancho natural. */
+  .foot {
     display: flex;
-    align-items: center;
-    gap: 20px;
     flex-wrap: wrap;
-    margin-block-start: 4px;
+    align-items: center;
+    gap: var(--space-lg);
   }
-  .cf-priv {
-    font-size: 12.5px;
+
+  .priv {
+    font-size: var(--text-xs);
     color: var(--faint);
   }
 
-  .form-ok {
+  /* Ocupa su hueco desde el principio: al mostrarse no desplaza el botón. */
+  .ok {
     color: var(--green);
-    font-size: 14.5px;
-    font-weight: 500;
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
     opacity: 0;
-    transition: opacity 0.3s;
-    margin-block-start: -6px;
+    transition: opacity var(--dur-base) var(--ease);
   }
-  .form-ok.show {
+
+  .ok.show {
     opacity: 1;
   }
 
-  @media (max-width: 480px) {
-    .cf-row {
+  @media (--to-sm) {
+    .row {
       grid-template-columns: 1fr;
     }
   }

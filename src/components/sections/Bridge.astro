@@ -1,8 +1,10 @@
 ---
 /**
- * Qué hago / Puente — head-row + "bridge stage": España · La bodega ⟷ anillo
- * central "Anna" ⟷ Norte de Europa · La mesa. Colapsa a 1 columna ≤860px.
+ * Qué hago / Puente — cabecera + "escenario": España · La bodega ⟷ anillo
+ * central "Anna" ⟷ Norte de Europa · La mesa. Colapsa a 1 columna en tablet.
  */
+import Section from '@components/ui/Section.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
 import { useTranslations } from '@i18n/utils';
 import type { Lang } from '@i18n/ui';
 
@@ -13,99 +15,96 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section class="bridge" id="bridge" data-screen-label="Qué hago">
-  <div class="wrap">
-    <div class="head-row">
-      <div class="head-lead">
-        <span class="sec-idx reveal">{t.bridge.idx}</span>
-        <h2 class="sec-title reveal" set:html={t.bridge.title} />
-      </div>
-      <p class="sec-aside reveal">{t.bridge.aside}</p>
+<Section id="bridge" label="Qué hago">
+  <SectionHeader idx={t.bridge.idx} title={t.bridge.title} aside={t.bridge.aside} />
+
+  <div class="stage">
+    <div class="side reveal">
+      <span class="kick">{t.bridge.left.kick}</span>
+      <h3>{t.bridge.left.h}</h3>
+      <p>{t.bridge.left.p}</p>
     </div>
 
-    <div class="bridge-stage">
-      <div class="bridge-side reveal">
-        <span class="bs-kick">{t.bridge.left.kick}</span>
-        <h3>{t.bridge.left.h}</h3>
-        <p>{t.bridge.left.p}</p>
-      </div>
-      <div class="bridge-mid reveal" aria-hidden="true">
-        <div class="ring"><span>{t.bridge.ring}</span></div>
-        <span class="dash"></span>
-      </div>
-      <div class="bridge-side right reveal">
-        <span class="bs-kick">{t.bridge.right.kick}</span>
-        <h3>{t.bridge.right.h}</h3>
-        <p>{t.bridge.right.p}</p>
-      </div>
+    <div class="mid reveal" aria-hidden="true">
+      <div class="ring"><span>{t.bridge.ring}</span></div>
+      <span class="dot"></span>
+    </div>
+
+    <div class="side right reveal">
+      <span class="kick">{t.bridge.right.kick}</span>
+      <h3>{t.bridge.right.h}</h3>
+      <p>{t.bridge.right.p}</p>
     </div>
   </div>
-</section>
+</Section>
 
 <style>
-  .bridge {
-    padding-block: clamp(90px, 12vw, 150px);
-  }
-  .bridge-stage {
+  .stage {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: clamp(20px, 4vw, 60px);
+    gap: clamp(var(--space-md), 4vw, var(--space-4xl));
   }
-  .bridge-side {
+
+  .side {
     display: grid;
-    gap: 14px;
+    gap: var(--space-md);
     align-content: start;
   }
-  .bs-kick {
-    font-size: 12px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--wine);
-  }
-  .bridge-side h3 {
-    font-size: clamp(26px, 3.4vw, 46px);
-  }
-  .bridge-side p {
-    color: var(--muted);
-    max-width: 30ch;
-    line-height: 1.55;
-    font-size: 15.5px;
-  }
-  .bridge-side.right {
+
+  /* La columna derecha se alinea a su borde: justify-items, no margins. */
+  .side.right {
     text-align: right;
     justify-items: end;
   }
-  .bridge-side.right p {
-    margin-inline-start: auto;
+
+  .kick {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
-  .bridge-mid {
-    display: grid;
-    place-items: center;
-    gap: 12px;
+  .side h3 {
+    font-size: var(--text-5xl);
   }
-  .ring {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    border: 1px solid var(--hair);
+
+  .side p {
+    color: var(--muted);
+    max-inline-size: var(--measure-narrow);
+    line-height: var(--leading-normal);
+    font-size: var(--text-md);
+  }
+
+  .mid {
     display: grid;
     place-items: center;
+    gap: var(--space-sm);
+  }
+
+  .ring {
+    position: relative;
+    display: grid;
+    place-items: center;
+    inline-size: var(--size-ring);
+    block-size: var(--size-ring);
+    border-radius: var(--radius-circle);
+    border: var(--border-hair) solid var(--hair);
     font-family: var(--font-s);
     font-style: italic;
-    font-size: 17px;
+    font-size: var(--text-xl);
     text-align: center;
     line-height: 1.05;
-    position: relative;
   }
+
+  /* Los filetes que salen del anillo hacia cada columna. */
   .ring::before,
   .ring::after {
     content: '';
     position: absolute;
     inset-block-start: 50%;
-    width: clamp(20px, 4vw, 60px);
-    height: 1px;
+    inline-size: clamp(var(--space-md), 4vw, var(--space-4xl));
+    block-size: var(--border-hair);
     background: var(--hair);
   }
   .ring::before {
@@ -114,34 +113,28 @@ const t = useTranslations(lang);
   .ring::after {
     inset-inline-start: 100%;
   }
-  .dash {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--wine);
+
+  .dot {
+    inline-size: var(--space-xs);
+    block-size: var(--space-xs);
+    border-radius: var(--radius-circle);
+    background: var(--accent);
   }
 
-  @media (max-width: 860px) {
-    .bridge-stage {
+  @media (--to-lg) {
+    .stage {
       grid-template-columns: 1fr;
-      gap: 30px;
+      gap: var(--space-xl);
       text-align: left;
     }
-    .bridge-side.right {
+    .side.right {
       text-align: left;
       justify-items: start;
     }
-    .bridge-side.right p {
-      margin-inline-start: 0;
-    }
+    /* Apilado, los filetes laterales del anillo ya no conectan nada. */
     .ring::before,
     .ring::after {
       display: none;
-    }
-  }
-  @media (max-width: 620px) {
-    .bridge {
-      padding-block: 72px;
     }
   }
 </style>

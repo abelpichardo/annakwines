@@ -3,7 +3,7 @@
  *   - Scroll suave (Lenis) + anclas suaves.
  *   - Nav shrink + barra de progreso de scroll.
  *   - Reveals al entrar en viewport (IntersectionObserver) con stagger.
- *   - Parallax suave del retrato.
+ *   - Parallax suave del retrato (elementos marcados con `data-parallax`).
  *   - Envío simulado del formulario (sin backend).
  *   - Conmutador de idioma: conserva el hash actual al cambiar de idioma.
  *
@@ -98,7 +98,7 @@ function init(): void {
   }
 
   // Parallax suave del retrato.
-  const plate = document.querySelector<HTMLElement>('.portrait-plate');
+  const plate = document.querySelector<HTMLElement>('[data-parallax]');
   if (plate && !reduced) {
     let ticking = false;
     window.addEventListener(
